@@ -4,4 +4,6 @@ import com.xworkz.ecomerceApp.dto.UserDto;
 
 public interface UserService {
     boolean regiserUser(UserDto userDto);
+
+    UserDto findEmailService(String email);
 }
