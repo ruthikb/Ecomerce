@@ -1,20 +1,23 @@
 package com.xworkz.ecomerceApp.entity;
 
-import com.xworkz.ecomerceApp.dto.Role;
+import com.xworkz.ecomerceApp.dto.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(schema = "user_register")
-@NamedQueries(
-        @NamedQuery(name = "getEmail",query = " from UserEntity where email=:email")
-)
+
+@NamedQueries({
+        @NamedQuery(name = "userExist", query = "select count(u) from UserEntity u where u.email=:email or u.phone=:phone"),
+        @NamedQuery(name = "findByEmailOrPhone", query = "FROM UserEntity u  WHERE u.email = :email OR u.phone = :phone"),
+        @NamedQuery(name = "clearOtp",query = "update UserEntity set otp=null")
+})
 public class UserEntity{
 
     @Id
@@ -32,5 +35,11 @@ public class UserEntity{
     @Enumerated(EnumType.STRING)
     private Role role;
     @Column(name = "phone")
-    private  long Phone;
+    private  String phone;
+    @Column(name = "failed_attempts")
+    private Integer failedAttempts;
+    @Column(name = "lock_time")
+    private LocalDateTime lockTime;
+    @Column(name = "otp")
+    private String otp;
 }

@@ -1,56 +1,75 @@
 package com.xworkz.ecomerceApp.repositry.impl;
-
 import com.xworkz.ecomerceApp.entity.UserEntity;
 import com.xworkz.ecomerceApp.repositry.UserRepositry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 @Repository
-public class UserRepositryImpl implements UserRepositry {
+public class UserRepositryImpl implements UserRepositry{
 
-    public void setFactory(EntityManagerFactory factory) {
-        System.err.println("repositry implematation");
-    }
+
 
     @Autowired
-    EntityManagerFactory factory;
-
+     EntityManagerFactory entityManagerFactory;
     @Override
-    public boolean registerUser(UserEntity userEntity) {
-        System.err.println(userEntity);
+    public boolean registerUser(UserEntity  userEntity) {
+        EntityManager entityManager = null;
+        EntityTransaction entityTransaction = null;
         try {
-            EntityManager entityManager = factory.createEntityManager();
-            entityManager.getTransaction().begin();
+            entityManager=entityManagerFactory.createEntityManager();
+            entityTransaction=entityManager.getTransaction();
+            entityTransaction.begin();
             entityManager.persist(userEntity);
-            entityManager.getTransaction().commit();
+            entityTransaction.commit();
             return true;
         } catch (Exception e) {
-            System.err.println(e.getMessage() + "======");
-            System.err.println(e.getMessage());
+            e.printStackTrace();
             return false;
         }
+    }
 
+    @Override
+    public boolean existsEmailOrPhone(String email, Long phone) {
+        EntityManager entityManager = null;
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+
+            Query query = entityManager.createNamedQuery("userExist");
+            query.setParameter("email", email);
+            query.setParameter("phone", phone);
+            Long count = (Long) query.getSingleResult();
+            return count > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+        }
 
     }
 
     @Override
-    public UserEntity findEmailRepo(String email) {
-        System.err.println(email);
-        try {
-            EntityManager entityManager = factory.createEntityManager();
-            entityManager.getTransaction().begin();
-            Query query = entityManager.createNamedQuery("getEmail");
-            query.setParameter("email", email);
-            entityManager.getTransaction().commit();
-
-        }catch (Exception e){
-            System.err.println(e.getMessage());
-        }
-
-        return null;
+    public void clearOtp() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+    try {
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createNamedQuery("clearOtp");
+        query.executeUpdate();
+        entityManager.getTransaction().commit();
     }
+    catch (Exception e){
+        System.err.println(e.getMessage());
+    }
+    finally {
+        entityManager.close();
+    }
+    }
+
+
 }

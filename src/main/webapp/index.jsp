@@ -5,16 +5,16 @@
     <meta charset="UTF-8">
     <title>Index</title>
     <style>
-        /* ===== Color Palette ===== */
+
         :root {
-            --primary: #000b0a;       /* Teal */
-            --secondary: #000a08;     /* Dark Teal */
-            --light: #F1F8E9;         /* Soft Green-Gray */
-            --accent: #000807;        /* Vibrant Teal */
-            --text: #f5f5f5;          /* Charcoal */
+            --primary: #000b0a;
+            --secondary: #000a08;
+            --light: #F1F8E9;
+            --accent: #000807;
+            --text: #f5f5f5;
         }
 
-        /* ===== Base ===== */
+
         * {
             margin: 0;
             padding: 0;
@@ -28,7 +28,7 @@
             overflow-x: hidden;
         }
 
-        /* ===== Header ===== */
+
         header {
             background-color: var(--primary);
             color: white;
@@ -62,7 +62,7 @@
             color: var(--accent);
         }
 
-        /* ===== Dynamic Body ===== */
+
         main {
             margin-top: 90px;
             margin-bottom: 90px;
@@ -105,8 +105,8 @@
             background-color: var(--secondary);
         }
 
-        /* ===== Footer ===== */
         footer {
+
             background-color: var(--secondary);
             color: white;
             position: fixed;
@@ -132,7 +132,6 @@
             text-align: center;
         }
 
-        /* ===== Scroll Section Example ===== */
         .laptop-section {
             margin-top: 50px;
             display: grid;
@@ -169,7 +168,7 @@
 <header>
     <h1>ecomerce Portal</h1>
     <nav>
-        <a href="">Login</a>
+        <a href="loginUser">Login</a>
     </nav>
 </header>
 

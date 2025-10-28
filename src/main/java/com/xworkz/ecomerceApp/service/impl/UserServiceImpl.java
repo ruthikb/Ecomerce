@@ -1,5 +1,6 @@
 package com.xworkz.ecomerceApp.service.impl;
 
+import com.xworkz.ecomerceApp.dto.LoginDto;
 import com.xworkz.ecomerceApp.dto.UserDto;
 import com.xworkz.ecomerceApp.entity.UserEntity;
 import com.xworkz.ecomerceApp.repositry.UserRepositry;
@@ -8,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,34 +20,43 @@ public class UserServiceImpl implements UserService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Override
-    public boolean regiserUser(UserDto userDto) {
-        if (!userDto.getPassword().equals(userDto.getPassword())) {
-            System.out.println("invalid password");
-            return false;
-        } else {
-            userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
-            System.out.println("valid password");
-            UserEntity userEntity=new UserEntity();
-            System.out.println(userDto);
-            BeanUtils.copyProperties(userDto,userEntity);
-//            userEntity.setRole(userDto.getRole());
-            return userRepositry.registerUser(userEntity);
-        }
 
+    @Override
+    public String registerUser(UserDto userDto) {
+
+        try {
+
+            boolean exists = userRepositry.existsEmailOrPhone(userDto.getEmail(), Long.valueOf(userDto.getPhone()));
+            if (exists) {
+                System.out.println("User already exists with same email or phone number");
+                return "User already exists";
+            }
+            UserEntity userEntity = new UserEntity();
+
+            BeanUtils.copyProperties(userDto, userEntity);
+
+            userEntity.setPassword( bCryptPasswordEncoder.encode(userDto.getPassword()));
+
+            boolean saved = userRepositry.registerUser(userEntity);
+
+            if (saved) {
+                return "User registered successfully";
+            } else {
+                return "Failed to register user";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error occurred while saving user";
+        }
     }
 
-    @Override
-    public UserDto findEmailService(String email) {
-           UserEntity entity = new UserEntity();
-            entity=userRepositry.findEmailRepo(email);
-            if (entity!=null)
-            {
-                UserDto dto = new UserDto();
-                BeanUtils.copyProperties(entity,dto);
-                return dto;
-            }
-            return null;
-        }
+//    @Override
+//    public String checkMailAndPAssword(LoginDto loginDto, Model model) {
+//        String emailAndPhone = loginDto.getEmailAndPhone();
+//        String password = loginDto.getPassword();
+//        userRepositry.existsEmailOrPhone(emailAndPhone);
+//        return "";
+//    }
+
 
 }
