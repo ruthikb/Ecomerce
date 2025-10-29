@@ -98,8 +98,4 @@ public class UserController {
     public  String  logOut(){
         return "login";
     }
-    @GetMapping("updateAdminProfile")
-    public String updateAdmin(){
-        return "updateAdmin";
-    }
 }

@@ -15,10 +15,10 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "getAllCustomer",query = "from AddCustomerEntity"),
+        @NamedQuery(name = "getAllCustomer",query = " from AddCustomerEntity"),
         @NamedQuery(name = "getCustomerByEmail",query = "from AddCustomerEntity where email=:email"),
         @NamedQuery(name = "deleteCustomer",query = "delete from AddCustomerEntity c where c.email=:emailBy"),
-        @NamedQuery(name = "viewCustomerByEmail",query = "from AddCustomerEntity where email=:email")
+//        @NamedQuery(name = "viewCustomerByEmail",query = "from AddCustomerEntity where email=:email")
 })
 public class AddCustomerEntity {
     @Id

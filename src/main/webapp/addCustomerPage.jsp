@@ -18,7 +18,7 @@
             background-color: #f5f5f5;
         }
 
-        
+
         .navbar {
             position: fixed;
             top: 0;
@@ -27,11 +27,11 @@
             z-index: 1050;
         }
 
-        
+
         .sidebar {
             position: fixed;
             top: 56px;
-            
+
             left: 0;
             width: 250px;
             height: calc(100vh - 56px);
@@ -60,7 +60,7 @@
             min-height: calc(100vh - 70px);
         }
 
-  
+
         footer {
             background-color: black;
             color: white;
@@ -94,7 +94,7 @@
 </head>
 
 <body>
-  
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="Admin.jsp">E-Commerce Portal</a>
@@ -111,10 +111,7 @@
                             <i class="bi bi-person-circle"></i> Admin Name
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="updateAdminProfile">Edit-Profile</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+
                             <li><a class="dropdown-item" href="logOut">Log-Out</a></li>
                         </ul>
                     </li>
@@ -132,11 +129,15 @@
                 </a>
             </li>
             <li class="mb-2">
-                <a href="getAllCustomers"
-                    class="d-block py-2 px-3 text-white rounded hover-item">
+                <a href="getAllCustomers" class="d-block py-2 px-3 text-white rounded hover-item">
                     <i class="bi bi-people me-2"></i> View Customers
                 </a>
             </li>
+            <li class="mb-2">
+                           <a href="viewUser" class="d-block py-2 px-3 text-white rounded hover-item">
+                           <i class="bi bi-people me-2"></i> View User
+                           </a>
+                           </li>
         </ul>
     </div>
     <main>
@@ -170,28 +171,17 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label">State</label>
-                    <select class="form-select" id="stateSelect" name="state" required>
-                        <option value="">Select State</option>
+                    <label for="pinCode" class="form-label">PinCode</label>
+                    <input type="text" class="form-control" name="pinCode" id="pinCode" placeholder="Enter pincode"
+                        onchange="checkPinCode()">
+                    <span id="pinCodeError" class="text-danger"></span>
+                    <label for="state" class="form-label">State</label>
+                    <select class="form-select" name="state" id="state">
+                        <option selected disabled>Select State</option>
                     </select>
+                    <label for="city" class="form-label mt-3">City</label>
+                    <input type="text" class="form-control" name="city" id="city" placeholder="Enter city">
 
-                    <label class="form-label mt-3">City</label>
-                    <select class="form-select" id="citySelect" name="city" required>
-                        <option value="">Select City</option>
-                    </select>
-                    <div id="stateCityError" class="text-danger small mt-2"></div>
-
-                    <label class="form-label mt-3">Pin Code</label>
-                    <input type="text" class="form-control" name="pinCode">
-
-                    <label class="form-label mt-3">Address</label>
-                    <input type="text" class="form-control" name="address">
-
-                    <label class="form-label mt-3">Billing Address</label>
-                    <input type="text" class="form-control" name="billingAddress" id="billingAddress">
-                </div>
-
-                <div class="col-12 mt-3">
                     <label class="form-label">Do you want shipping address same as billing address?</label>
                     <div>
                         <input type="radio" name="sameAddress" value="yes" id="sameYes">
@@ -202,22 +192,26 @@
 
                     <label class="form-label mt-3">Shipping Address</label>
                     <input type="text" class="form-control" name="shippingAddress" id="shippingAddress">
+                    <label class="form-label mt-3">Address</label>
+                    <input type="text" class="form-control" name="address" id="address" placeholder="Enter address"
+                        required>
                 </div>
 
                 <div class="col-12 mt-3">
-                    <label class="form-label">Payment Mode</label><br>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="paymentMode" value="online" id="online">
-                        <label class="form-check-label" for="online">Online</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="paymentMode" value="cash" id="cash">
-                        <label class="form-check-label" for="cash">Cash</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="paymentMode" value="cheque" id="cheque">
-                        <label class="form-check-label" for="cheque">Cheque</label>
-                    </div>
+                    <label class="form-label mt-3">Billing Address</label>
+                    <input type="text" class="form-control" name="billingAddress" id="billingAddress"
+                        placeholder="Enter billing address" required>
+                </div>
+
+                <div class="col-12 mt-3">
+                    <label class="form-label">Payment Mode</label>
+                    <select class="form-select" name="paymentMode" required>
+                        <option value="">Select Payment Mode</option>
+                        <option value="online">Online</option>
+                        <option value="cash">Cash</option>
+                        <option value="cheque">Cheque</option>
+                    </select>
+
                 </div>
 
                 <div class="col-12 text-center mt-4">
@@ -240,105 +234,36 @@
         setInterval(updateDateTime, 1000);
         updateDateTime();
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const stateSelect = document.getElementById('stateSelect');
-            const citySelect = document.getElementById('citySelect');
-            const errorDiv = document.getElementById('stateCityError');
+        async function checkPinCode() {
+            const pinCode = document.getElementById('pinCode').value.trim();
+            const errorId = document.getElementById('pinCodeError');
+            const stateSelect = document.getElementById('state');
+            const cityInput = document.getElementById('city');
 
+            // Clear previous errors and reset fields
+            errorId.innerHTML = '';
+            stateSelect.innerHTML = '<option selected disabled>Loading states...</option>';
+            cityInput.value = '';
 
-            fetch('https://countriesnow.space/api/v0.1/countries/states', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    country: 'India'
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    throw new Error(data.msg);
-                }
-                
-                stateSelect.innerHTML = '<option value="">Select State</option>';
-                data.data.states.forEach(state => {
-                    const option = document.createElement('option');
-                    option.value = state.name;
-                    option.textContent = state.name;
-                    stateSelect.appendChild(option);
-                });
-            })
-            .catch(error => {
-                errorDiv.textContent = 'Error loading states. Please try again.';
-                console.error('Error:', error);
-            });
+            if (pinCode.length !== 6 || isNaN(pinCode)) {
+                errorId.innerHTML = "Please enter a valid 6-digit pinCode.";
+                return;
+            }
+            try {
+                const response = await axios.get(`https://api.postalpincode.in/pincode/${pinCode}`);
+                const data = response.data;
 
-
-            stateSelect.addEventListener('change', function() {
-                const selectedState = this.value;
-                if (selectedState) {
-                    fetch('https://countriesnow.space/api/v0.1/countries/state/cities', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            country: 'India',
-                            state: selectedState
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            throw new Error(data.msg);
-                        }
-                        
-                        citySelect.innerHTML = '<option value="">Select City</option>';
-                        data.data.forEach(city => {
-                            const option = document.createElement('option');
-                            option.value = city;
-                            option.textContent = city;
-                            citySelect.appendChild(option);
-                        });
-                        citySelect.disabled = false;
-                    })
-                    .catch(error => {
-                        errorDiv.textContent = 'Error loading cities. Please try again.';
-                        console.error('Error:', error);
-                    });
+                if (data[0].Status === "Success" && data[0].PostOffice.length > 0) {
+                    const office = data[0].PostOffice[0];
+                    stateSelect.innerHTML = `<option selected>${office.State}</option>`;
+                    cityInput.value = office.District;
                 } else {
-                    citySelect.innerHTML = '<option value="">Select City</option>';
-                    citySelect.disabled = true;
+                    errorId.innerHTML = "No data found for this pincode.";
                 }
-            });
-
-
-            const sameYes = document.getElementById('sameYes');
-            const sameNo = document.getElementById('sameNo');
-            const shippingAddress = document.getElementById('shippingAddress');
-            const billingAddress = document.getElementById('billingAddress');
-
-            sameYes.addEventListener('change', function() {
-                if (this.checked) {
-                    shippingAddress.value = billingAddress.value;
-                    shippingAddress.readOnly = true;
-                }
-            });
-
-            sameNo.addEventListener('change', function() {
-                if (this.checked) {
-                    shippingAddress.readOnly = false;
-                    shippingAddress.value = '';
-                }
-            });
-
-            billingAddress.addEventListener('input', function() {
-                if (sameYes.checked) {
-                    shippingAddress.value = this.value;
-                }
-            });
-        });
+            } catch (error) {
+                errorId.innerHTML = "Failed to fetch data. Try again later.";
+            }
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

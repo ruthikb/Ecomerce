@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 @NamedQueries({
         @NamedQuery(name = "userExist", query = "select count(u) from UserEntity u where u.email=:email or u.phone=:phone"),
         @NamedQuery(name = "findByEmailOrPhone", query = "FROM UserEntity u  WHERE u.email = :email OR u.phone = :phone"),
-        @NamedQuery(name = "clearOtp",query = "update UserEntity set otp=null")
+        @NamedQuery(name = "clearOtp",query = "update UserEntity set otp=null"),
+        @NamedQuery(name = "getAdminName",query = "from UserEntity where email=:email")
 })
 public class UserEntity{
 

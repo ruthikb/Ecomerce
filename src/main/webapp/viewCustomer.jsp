@@ -115,10 +115,7 @@
                             <i class="bi bi-person-circle"></i> Admin Name
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="updateAdminProfile">Edit-Profile</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+
                             <li><a class="dropdown-item" href="logOut">Log-Out</a></li>
                         </ul>
                     </li>
@@ -140,6 +137,11 @@
                       <i class="bi bi-people me-2"></i> View Customers
                   </a>
               </li>
+              <li class="mb-2">
+               <a href="viewUser" class="d-block py-2 px-3 text-white rounded hover-item">
+               <i class="bi bi-people me-2"></i> View User
+               </a>
+               </li>
           </ul>
       </div>
     <main>
@@ -167,6 +169,28 @@
              </tbody>
             </c:forEach>
         </table>
+        <div>
+            <c:if test="${currentPage > 1}">
+                <a href="getAllCustomers?page=${currentPage - 1}&size=${pageSize}">Previous</a>
+            </c:if>
+
+            <c:forEach begin="1" end="${totalPages}" var="pageNum">
+                <c:choose>
+                    <c:when test="${pageNum == currentPage}">
+                        <strong>${pageNum}</strong>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="getAllCustomers?page=${pageNum}&size=${pageSize}">${pageNum}</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+
+            <c:if test="${currentPage < totalPages}">
+                <a href="getAllCustomers?page=${currentPage + 1}&size=${pageSize}">Next</a>
+            </c:if>
+        </div>
+
+
     </main>
 
     <footer>

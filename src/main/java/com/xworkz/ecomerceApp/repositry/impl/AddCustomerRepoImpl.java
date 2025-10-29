@@ -2,6 +2,7 @@ package com.xworkz.ecomerceApp.repositry.impl;
 
 
 import com.xworkz.ecomerceApp.entity.AddCustomerEntity;
+import com.xworkz.ecomerceApp.entity.UserEntity;
 import com.xworkz.ecomerceApp.repositry.AddCustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -109,20 +110,23 @@ public class AddCustomerRepoImpl implements AddCustomerRepo {
     }
 
     @Override
-    public AddCustomerEntity viewCustomerByEmail(String email) {
+    public UserEntity getAdminName(String email) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
-            Query query = entityManager.createNamedQuery("viewCustomerByEmail");
+            Query query = entityManager.createNamedQuery("getAdminName");
             query.setParameter("email",email);
             entityManager.getTransaction().commit();
-            return (AddCustomerEntity) query.getSingleResult();
+            return (UserEntity) query.getSingleResult();
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            return (AddCustomerEntity) Collections.emptyList();
+            return (UserEntity) Collections.emptyList();
         }
         finally {
             entityManager.close();
         }
+
     }
+
+
 }

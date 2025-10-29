@@ -2,6 +2,7 @@ package com.xworkz.ecomerceApp.controller;
 
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.xworkz.ecomerceApp.dto.AddCustomerDto;
+import com.xworkz.ecomerceApp.dto.UserDto;
 import com.xworkz.ecomerceApp.service.AddCoustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,13 +41,31 @@ public class AddCustomerController {
         return "Admin";
     }
 
-    @GetMapping("getAllCustomers")
-    public String getCustomer(Model model) {
+    @GetMapping("/getAllCustomers")
+    public String getCustomer(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model) {
+
         List<AddCustomerDto> dtoList = service.getAllCustomers();
-        dtoList.stream().forEach(System.err::println);
-        model.addAttribute("listOfCustomer", dtoList);
+
+        int totalCustomers = dtoList.size();
+        int totalPages = (int) Math.ceil((double) totalCustomers / size);
+
+        int start = (page - 1) * size;
+        int end = Math.min(start + size, totalCustomers);
+
+        List<AddCustomerDto> pagedCustomers = dtoList.subList(start, end);
+
+        model.addAttribute("listOfCustomer", pagedCustomers);
+        model.addAttribute("totalCustomers", totalCustomers);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pageSize", size);
+
         return "viewCustomer";
     }
+
 
     @GetMapping("getCustomer")
     public String getCustomer(@RequestParam("email") String email, Model model) {
@@ -84,13 +103,13 @@ public class AddCustomerController {
         model.addAttribute("listOfCustomer", dtoList);
         return "viewCustomer";
     }
+    @GetMapping("getAdminName")
+    public  String getAdminName(@RequestParam("email")String  email,Model model){
+        UserDto userDto=service.getAdminByName(email);
+        model.addAttribute("getName",userDto);
+        return "admin";
+    }
 
-//    @GetMapping("viewCustomer")
-//    public  String viewCustomerByEmail(@RequestParam("email")String email, Model model){
-//        AddCustomerDto addCustomerDto=service.viewCustomerByEmail(email);
-//        model.addAttribute("viewCustomer",addCustomerDto);
-//        return "viewCustomerInfo";
 //
-//    }
 
 }

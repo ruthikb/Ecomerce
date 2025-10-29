@@ -1,6 +1,7 @@
 package com.xworkz.ecomerceApp.repositry;
 
 import com.xworkz.ecomerceApp.entity.AddCustomerEntity;
+import com.xworkz.ecomerceApp.entity.UserEntity;
 
 import java.util.List;
 
@@ -15,5 +16,6 @@ public interface AddCustomerRepo {
 
     boolean deleteCustomerByEmail(String email);
 
-    AddCustomerEntity viewCustomerByEmail(String email);
+
+    UserEntity getAdminName(String email);
 }

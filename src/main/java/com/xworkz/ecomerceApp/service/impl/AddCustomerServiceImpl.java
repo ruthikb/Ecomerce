@@ -3,6 +3,7 @@ package com.xworkz.ecomerceApp.service.impl;
 import com.xworkz.ecomerceApp.dto.AddCustomerDto;
 import com.xworkz.ecomerceApp.dto.UserDto;
 import com.xworkz.ecomerceApp.entity.AddCustomerEntity;
+import com.xworkz.ecomerceApp.entity.UserEntity;
 import com.xworkz.ecomerceApp.repositry.AddCustomerRepo;
 import com.xworkz.ecomerceApp.service.AddCoustomerService;
 import org.springframework.beans.BeanUtils;
@@ -19,7 +20,7 @@ public class AddCustomerServiceImpl implements AddCoustomerService {
     @Autowired
     AddCustomerRepo addCustomerRepo;
     @Override
-    public boolean addCustomer(AddCustomerDto addCustomerDto) {
+    public boolean addCustomer(AddCustomerDto addCustomerDto){
         AddCustomerEntity addCustomerEntity=new AddCustomerEntity();
         BeanUtils.copyProperties(addCustomerDto,addCustomerEntity);
         return addCustomerRepo.saveCustomer(addCustomerEntity) ;
@@ -60,10 +61,12 @@ public class AddCustomerServiceImpl implements AddCoustomerService {
     }
 
     @Override
-    public AddCustomerDto viewCustomerByEmail(String email) {
-        AddCustomerDto addCustomerDto=new AddCustomerDto();
-        AddCustomerEntity entity=addCustomerRepo.viewCustomerByEmail(email);
-        BeanUtils.copyProperties(entity,addCustomerDto);
-        return addCustomerDto;
+    public UserDto getAdminByName(String email) {
+        UserDto userDto=new UserDto();
+        UserEntity userEntity=addCustomerRepo.getAdminName(email);
+        BeanUtils.copyProperties(userEntity,userEntity);
+        return userDto;
     }
+
+
 }

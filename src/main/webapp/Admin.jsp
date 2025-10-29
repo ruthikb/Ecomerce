@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html;charset=UTF-8"  %>
+<%@ page  isELIgnored="false" %>
+<%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -95,13 +98,12 @@
               <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                        <a class="nav-link dropdown-toggle" href="getAdminName" id="userDropdown" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle"></i> Admin Name
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="updateAdminProfile">Edit-Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
+
                             <li><a class="dropdown-item" href="logOut">Log-Out</a></li>
                         </ul>
                     </li>
@@ -124,10 +126,13 @@
                     <i class="bi bi-people me-2"></i> View Customers
                 </a>
             </li>
+            <li class="mb-2">
+                           <a href="viewUser" class="d-block py-2 px-3 text-white rounded hover-item">
+                           <i class="bi bi-people me-2"></i> View User
+                           </a>
+                           </li>
         </ul>
     </div>
-
-
     <main>
         <h2>Welcome, Admin!</h2>
         <p>This is your admin dashboard where you can manage users, products, and orders.</p>

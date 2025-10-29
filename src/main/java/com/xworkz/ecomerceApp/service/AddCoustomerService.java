@@ -1,6 +1,7 @@
 package com.xworkz.ecomerceApp.service;
 
 import com.xworkz.ecomerceApp.dto.AddCustomerDto;
+import com.xworkz.ecomerceApp.dto.UserDto;
 
 import java.util.List;
 
@@ -15,5 +16,6 @@ public interface AddCoustomerService {
 
     boolean deleteCustomerByEmail(String email);
 
-    AddCustomerDto viewCustomerByEmail(String email);
+
+    UserDto getAdminByName(String email);
 }
