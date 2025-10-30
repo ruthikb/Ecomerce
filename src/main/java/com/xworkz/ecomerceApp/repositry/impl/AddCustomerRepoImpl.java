@@ -55,12 +55,12 @@ public class AddCustomerRepoImpl implements AddCustomerRepo {
     }
 
     @Override
-    public AddCustomerEntity getCoustomerByEmail(String email) {
+    public AddCustomerEntity getCoustomerById(int id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
-            Query query = entityManager.createNamedQuery("getCustomerByEmail");
-            query.setParameter("email",email);
+            Query query = entityManager.createNamedQuery("getCustomerById");
+            query.setParameter("id",id);
             entityManager.getTransaction().commit();
             return (AddCustomerEntity) query.getSingleResult();
         }catch (Exception e) {
@@ -73,7 +73,7 @@ public class AddCustomerRepoImpl implements AddCustomerRepo {
     }
 
     @Override
-    public boolean updateCustomerByEmail(String email, AddCustomerEntity addCustomerEntity) {
+    public boolean updateCustomerById(int id, AddCustomerEntity addCustomerEntity) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
@@ -90,13 +90,13 @@ public class AddCustomerRepoImpl implements AddCustomerRepo {
     }
 
     @Override
-    public boolean deleteCustomerByEmail(String email) {
-        System.err.println("repo email"+email);
+    public boolean deleteCustomerById(int id) {
+        System.err.println("repo id"+id);
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
             Query query = entityManager.createNamedQuery("deleteCustomer");
-            query.setParameter("emailBy",email);
+            query.setParameter("id",id);
             query.executeUpdate();
             entityManager.getTransaction().commit();
             return true;

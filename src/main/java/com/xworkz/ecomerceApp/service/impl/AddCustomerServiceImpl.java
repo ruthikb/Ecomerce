@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -40,24 +39,24 @@ public class AddCustomerServiceImpl implements AddCoustomerService {
     }
 
     @Override
-    public AddCustomerDto getCustomersByEmail(String email) {
+    public AddCustomerDto getCustomersById(int id) {
         AddCustomerDto addCustomerDto=new AddCustomerDto();
-        AddCustomerEntity entity=addCustomerRepo.getCoustomerByEmail(email);
+        AddCustomerEntity entity=addCustomerRepo.getCoustomerById(id);
         BeanUtils.copyProperties(entity,addCustomerDto);
         return addCustomerDto;
     }
 
     @Override
-    public boolean updateCustomerByEmail(String email) {
+    public boolean updateCustomerById(int id, AddCustomerDto addCustomerDto) {
         AddCustomerEntity addCustomerEntity=new AddCustomerEntity();
-        BeanUtils.copyProperties(email,addCustomerEntity);
-        return addCustomerRepo.updateCustomerByEmail(email,addCustomerEntity);
+        BeanUtils.copyProperties(addCustomerDto,addCustomerEntity);
+        return addCustomerRepo.updateCustomerById(id,addCustomerEntity);
     }
 
     @Override
-    public boolean deleteCustomerByEmail(String email) {
-        System.err.println("service email"+email);
-        return addCustomerRepo.deleteCustomerByEmail(email);
+    public boolean deleteCustomerById(int id) {
+        System.err.println("service id"+id);
+        return addCustomerRepo.deleteCustomerById(id);
     }
 
     @Override

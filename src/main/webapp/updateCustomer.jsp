@@ -147,32 +147,34 @@
                 <main>
                     <h4 class="text-center mb-4">Update Cust</div>omer</h4>
 
-                    <form class="row g-3" action="updateCustomerByEmail" method="post">
-
+                    <form class="row g-3" action="updateCustomerById" method="post">
+                        
                         <div class="col-md-6">
+                            
+                            <input type="number" name="id" hidden value="${getSingleUser.getId()}">
                             <label class="form-label">Customer Name</label>
                             <input type="text" class="form-control" name="customerName"
-                                value="${getSingleUser.customerName}" required>
+                                value="${getSingleUser.getCustomerName()}" required>
 
                             <label class="form-label mt-3">Customer Type</label>
                             <select class="form-select" name="customerType" required>
                                 <option value="">Select Type</option>
-                                <option value="creditor" <c:if test="${getSingleUser.customerType == 'creditor'}">
+                                <option value="creditor" <c:if test="${getSingleUser.getCustomerType() == 'creditor'}">
                                     selected</c:if>>Creditor</option>
-                                <option value="debtor" <c:if test="${getSingleUser.customerType == 'debtor'}">selected
+                                <option value="debtor" <c:if test="${getSingleUser.getCustomerType() == 'debtor'}">selected
                                     </c:if>>Debtor</option>
                             </select>
 
                             <label class="form-label mt-3">Email</label>
-                            <input type="email" class="form-control" name="email" value="${getSingleUser.email}"
+                            <input type="email" class="form-control" name="email" value="${getSingleUser.getEmail()}"
                                 required>
 
                             <label class="form-label mt-3">Contact Number</label>
                             <input type="text" class="form-control" name="contactNumber"
-                                value="${getSingleUser.contactNumber}" required>
+                                value="${getSingleUser.getContactNumber()}" required>
 
                             <label class="form-label mt-3">GST Number</label>
-                            <input type="text" class="form-control" name="gstNumber" value="${getSingleUser.gstNumber}">
+                            <input type="text" class="form-control" name="gstNumber" value="${getSingleUser.getGstNumber()}">
 
                             <label class="form-label mt-3">Country</label>
                             <input type="text" class="form-control" name="country" value="India" readonly>
@@ -180,37 +182,37 @@
 
                         <div class="col-md-6">
                             <label class="form-label mt-3">Pin Code</label>
-                            <input type="text" class="form-control" name="pinCode" value="${getSingleUser.pinCode}"
+                            <input type="text" class="form-control" name="pinCode" value="${getSingleUser.getPinCode()}"
                                 onchange="checkPinCode()" required>
                             <div id="stateCityError" class="text-danger small mt-2"></div>
                             <label class="form-label">State</label>
                             <select class="form-select" id="state" name="state" required>
 
-                                <option value="${getSingleUser.state}" <c:if
-                                    test="${getSingleUser.state == 'getSingleUser.state'}">selected</c:if>
-                                    >${getSingleUser.state}</option>
+                                <option value="${getSingleUser.getState()}" <c:if
+                                    test="${getSingleUser.getState() == 'getSingleUser.getState()'}">selected</c:if>
+                                    >${getSingleUser.getState()}</option>
                                 <option value="">Select State</option>
                             </select>
 
                             <label class="form-label mt-3">City</label>
                             <input type="text" class="form-control" id="city" name="city"
-                                value="${getSingleUser.city}" required>
+                                value="${getSingleUser.getCity()}" required>
                              <label class="form-label">Do you want shipping address same as billing address?</label>
                             <div>
-                                <input type="radio" name="sameAddress" value="${getSingleUser.sameAddress}"
+                                <input type="radio" name="sameAddress" value="${getSingleUser.getSameAddress()}"
                                     id="sameYes">
                                 <label for="sameYes">Yes</label>
-                                <input type="radio" name="sameAddress" value="${getSingleUser.sameAddress}" id="sameNo"
+                                <input type="radio" name="sameAddress" value="${getSingleUser.getSameAddress()}" id="sameNo"
                                     class="ms-3">
                                 <label for="sameNo">No</label>
                             </div>
 
                             <label class="form-label mt-3">Shipping Address</label>
                             <input type="text" class="form-control" name="shippingAddress"
-                                value="${getSingleUser.shippingAddress}" id="shippingAddress">
+                                value="${getSingleUser.getShippingAddress()}" id="shippingAddress">
                             
                             <label class="form-label mt-3">Address</label>
-                            <input type="text" class="form-control" name="address" value="${getSingleUser.address}"
+                            <input type="text" class="form-control" name="address" value="${getSingleUser.getAddress()}"
                                 required>
 
                             
@@ -242,7 +244,7 @@
                         </div>
 
                         <div class="col-12 text-center mt-4">
-                            <button type="submit" class="btn btn-primary px-4">Submit</button>
+                            <button type="submit" class="btn btn-primary px-4">Update</button>
                         </div>
                     </form>
                     </div>
@@ -290,6 +292,33 @@
                             errorId.innerHTML = "Failed to fetch data. Try again later.";
                         }
                     }
+                    document.addEventListener('DOMContentLoaded', function() {
+                                const sameYesRadio = document.getElementById('sameYes');
+                                const sameNoRadio = document.getElementById('sameNo');
+                                const billingAddressInput = document.getElementById('billingAddress');
+                                const shippingAddressInput = document.getElementById('shippingAddress');
+
+                                function handleAddressChange() {
+                                    if (sameYesRadio.checked) {
+                                        shippingAddressInput.value = billingAddressInput.value;
+                                        shippingAddressInput.setAttribute('readonly', true);
+                                    } else {
+                                        shippingAddressInput.value = '';
+                                        shippingAddressInput.removeAttribute('readonly');
+                                    }
+                                }
+
+
+                                sameYesRadio.addEventListener('change', handleAddressChange);
+                                sameNoRadio.addEventListener('change', handleAddressChange);
+
+
+                                billingAddressInput.addEventListener('input', function() {
+                                    if (sameYesRadio.checked) {
+                                        shippingAddressInput.value = billingAddressInput.value;
+                                    }
+                                });
+                            });
 
                 </script>
 

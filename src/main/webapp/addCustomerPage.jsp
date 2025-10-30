@@ -264,6 +264,34 @@
                 errorId.innerHTML = "Failed to fetch data. Try again later.";
             }
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const sameYesRadio = document.getElementById('sameYes');
+            const sameNoRadio = document.getElementById('sameNo');
+            const billingAddressInput = document.getElementById('billingAddress');
+            const shippingAddressInput = document.getElementById('shippingAddress');
+
+            function handleAddressChange() {
+                if (sameYesRadio.checked) {
+                    shippingAddressInput.value = billingAddressInput.value;
+                    shippingAddressInput.setAttribute('readonly', true);
+                } else {
+                    shippingAddressInput.value = '';
+                    shippingAddressInput.removeAttribute('readonly');
+                }
+            }
+
+           
+            sameYesRadio.addEventListener('change', handleAddressChange);
+            sameNoRadio.addEventListener('change', handleAddressChange);
+
+         
+            billingAddressInput.addEventListener('input', function() {
+                if (sameYesRadio.checked) {
+                    shippingAddressInput.value = billingAddressInput.value;
+                }
+            });
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

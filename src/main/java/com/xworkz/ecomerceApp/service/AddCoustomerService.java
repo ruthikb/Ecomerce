@@ -10,12 +10,15 @@ public interface AddCoustomerService {
 
     List<AddCustomerDto> getAllCustomers();
 
-    AddCustomerDto getCustomersByEmail(String email);
 
-    boolean updateCustomerByEmail(String email);
 
-    boolean deleteCustomerByEmail(String email);
+    boolean updateCustomerById(int id, AddCustomerDto addCustomerDto);
+
+    boolean deleteCustomerById(int id);
 
 
     UserDto getAdminByName(String email);
+
+
+    AddCustomerDto getCustomersById(int id);
 }

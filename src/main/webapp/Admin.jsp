@@ -9,6 +9,8 @@
     <title>Admin-Page</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
 
     <style>
         body {
@@ -98,9 +100,9 @@
               <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="getAdminName" id="userDropdown" role="button"
+                        <a class="nav-link dropdown-toggle" href="getAdminName" id="firstName" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-circle"></i> Admin Name
+                            <i class="bi bi-person-circle"></i> ${userDto.firstName()}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
 
@@ -114,25 +116,25 @@
 
  
     <div class="sidebar border-end">
-        <h5 class="text-center border-bottom pb-2 mb-3">Menu</h5>
-        <ul class="list-unstyled">
-            <li class="mb-2">
-                <a href="addCustomerPage" class="d-block py-2 px-3 text-white rounded hover-item">
-                    <i class="bi bi-person-plus me-2"></i> Add Customer
-                </a>
-            </li>
-            <li class="mb-2">
-                <a href="getAllCustomers" class="d-block py-2 px-3 text-white rounded hover-item">
-                    <i class="bi bi-people me-2"></i> View Customers
-                </a>
-            </li>
-            <li class="mb-2">
-                           <a href="viewUser" class="d-block py-2 px-3 text-white rounded hover-item">
-                           <i class="bi bi-people me-2"></i> View User
-                           </a>
-                           </li>
-        </ul>
-    </div>
+              <h5 class="text-center border-bottom pb-2 mb-3">Menu</h5>
+              <ul class="list-unstyled">
+                  <li class="mb-2">
+                      <a href="addCustomerPage" class="d-block py-2 px-3 text-white rounded hover-item">
+                          <i class="bi bi-person-plus me-2"></i> Add Customer
+                      </a>
+                  </li>
+                  <li class="mb-2">
+                      <a href="getAllCustomers" class="d-block py-2 px-3 text-white rounded hover-item">
+                          <i class="bi bi-people me-2"></i> View Customers
+                      </a>
+                  </li>
+                  <li class="mb-2">
+                   <a href="viewUser" class="d-block py-2 px-3 text-white rounded hover-item">
+                   <i class="bi bi-people me-2"></i> View User
+                   </a>
+                   </li>
+              </ul>
+          </div>
     <main>
         <h2>Welcome, Admin!</h2>
         <p>This is your admin dashboard where you can manage users, products, and orders.</p>

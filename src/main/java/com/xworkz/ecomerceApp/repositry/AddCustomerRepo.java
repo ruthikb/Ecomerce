@@ -10,11 +10,11 @@ public interface AddCustomerRepo {
 
     List<AddCustomerEntity> getAllCoustomers();
 
-    AddCustomerEntity getCoustomerByEmail(String email);
+    AddCustomerEntity getCoustomerById(int id);
 
-    boolean updateCustomerByEmail(String email, AddCustomerEntity addCustomerEntity);
+    boolean updateCustomerById(int id, AddCustomerEntity addCustomerEntity);
 
-    boolean deleteCustomerByEmail(String email);
+    boolean deleteCustomerById(int id);
 
 
     UserEntity getAdminName(String email);

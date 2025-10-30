@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class AddCustomerDto {
 
+    private  int id;
     @NotEmpty(message = "Customer name cannot be empty")
     @Size(max = 100, message = "Customer name should not exceed 100 characters")
     private String customerName;

@@ -150,6 +150,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th scope="col">SlNo</th>
                     <th scope="col">Customer name</th>
                     <th scope="col">Customer type</th>
                     <th scope="col">Email</th>
@@ -157,15 +158,16 @@
                     <th scope="col">Action</th>
                 </tr>
             </thead>
-             <c:forEach items="${listOfCustomer}" var="dtoList">
+             <c:forEach items="${getAllUser}" var="dtoList">
             <tbody>
+            <td>${dtoList.getId()}</td>
             <td>${dtoList.getCustomerName()}</td>
             <td>${dtoList.getCustomerType()}</td>
             <td>${dtoList.getEmail()}</td>
             <td>${dtoList.getContactNumber()}</td>
             <td>
-                <a href="getCustomer?email=${dtoList.getEmail()}"><i class="bi bi-pencil-square"></i></a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-                <a href="deleteCustomer?email=${dtoList.getEmail()}"><i class="bi bi-trash"></i></a></td>
+                <a href="getCustomer?id=${dtoList.getId()}"><i class="bi bi-pencil-square"></i></a>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                <a href="deleteCustomer?id=${dtoList.getId()}"><i class="bi bi-trash"></i></a></td>
              </tbody>
             </c:forEach>
         </table>

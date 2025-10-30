@@ -68,15 +68,15 @@ public class AddCustomerController {
 
 
     @GetMapping("getCustomer")
-    public String getCustomer(@RequestParam("email") String email, Model model) {
-        AddCustomerDto addCustomerDto = service.getCustomersByEmail(email);
+    public String getCustomer(@RequestParam("id") int id, Model model) {
+        AddCustomerDto addCustomerDto = service.getCustomersById(id);
         model.addAttribute("getSingleUser", addCustomerDto);
         return "updateCustomer";
     }
 
-    @PostMapping("updateCustomerByEmail")
-    public String updateCustomerByEmail(@RequestParam("email") String email, Model model) {
-        service.updateCustomerByEmail(email);
+    @PostMapping("updateCustomerById")
+    public String updateCustomerById(@RequestParam("id")int id,AddCustomerDto addCustomerDto, Model model) {
+        service.updateCustomerById(id,addCustomerDto);
         List<AddCustomerDto> dtoList = service.getAllCustomers();
         dtoList.stream().forEach(System.err::println);
         model.addAttribute("listOfCustomer", dtoList);
@@ -94,21 +94,21 @@ public class AddCustomerController {
 //    }
 
     @GetMapping("deleteCustomer")
-    public String deleteCustomerByEmail(@RequestParam("email") String email, HttpServletRequest request,Model model){
+    public String deleteCustomerById(@RequestParam("id") int  id, HttpServletRequest request,Model model){
 
-        System.err.println(email);
-        service.deleteCustomerByEmail(email);
+        System.err.println(id);
+        service.deleteCustomerById(id);
         List<AddCustomerDto> dtoList = service.getAllCustomers();
         dtoList.stream().forEach(System.err::println);
         model.addAttribute("listOfCustomer", dtoList);
         return "viewCustomer";
     }
-    @GetMapping("getAdminName")
-    public  String getAdminName(@RequestParam("email")String  email,Model model){
-        UserDto userDto=service.getAdminByName(email);
-        model.addAttribute("getName",userDto);
-        return "admin";
-    }
+//    @GetMapping("getAdminName")
+//    public  String getAdminName(@RequestParam("email")String  email,Model model){
+//        UserDto userDto=service.getAdminByName(email);
+//        model.addAttribute("getName",userDto);
+//        return "admin";
+//    }
 
 //
 
