@@ -6,5 +6,9 @@ import com.xworkz.ecomerceApp.dto.enums.Role;
 import java.util.List;
 
 public interface ViewUserService {
-    List<UserDto> getAllUsers(Role role);
+    List<UserDto> getAllUsers();
+
+    UserDto getUserById(int id);
+
+    boolean deleteUserById(int id);
 }

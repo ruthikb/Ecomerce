@@ -18,7 +18,9 @@ import java.time.LocalDateTime;
         @NamedQuery(name = "findByEmailOrPhone", query = "FROM UserEntity u  WHERE u.email = :email OR u.phone = :phone"),
         @NamedQuery(name = "clearOtp",query = "update UserEntity set otp=null"),
         @NamedQuery(name = "getAdminName",query = "from UserEntity where email=:email"),
-        @NamedQuery(name = "getAllUser",query = "from UserEntity where role= user")
+        @NamedQuery(name = "getAllUser",query = "from UserEntity where role='user'"),
+        @NamedQuery(name = "getUserById",query = "from UserEntity where id=:id"),
+        @NamedQuery(name = "deleteUserById",query = " delete from UserEntity where id=:id")
 })
 public class UserEntity{
 

@@ -159,16 +159,16 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${listOfCustomer}" var="dtoList">
+                <c:forEach items="${getAllUser}" var="dtoList">
                     <tr>
-                        <td>${user.id}</td>
-                        <td>${user.firstName}</td>
-                        <td>${user.lastName}</td>
-                        <td>${user.email}</td>
-                        <td>${user.role}</td>
+                        <td>${dtoList.id}</td>
+                        <td>${dtoList.firstName}</td>
+                        <td>${dtoList.lastName}</td>
+                        <td>${dtoList.email}</td>
+                        <td>${dtoList.role}</td>
                         <td>
-                            <a href="editUser?id=${user.id}" class="bi bi-pencil-square"></a>&nbsp;&nbsp;
-                            <a href="deleteUser?id=${user.id}" class="bi bi-trash"></a>
+                            <a href="editUser?id=${dtoList.id}" class="bi bi-pencil-square"></a>&nbsp;&nbsp;
+                            <a href="deleteUser?id=${dtoList.id}" class="bi bi-trash"></a>
                         </td>
                     </tr>
                 </c:forEach>

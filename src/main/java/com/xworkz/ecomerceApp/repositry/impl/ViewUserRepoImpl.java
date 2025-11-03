@@ -16,12 +16,11 @@ public class ViewUserRepoImpl implements ViewUserRepo {
     @Autowired
     EntityManagerFactory entityManagerFactory;
     @Override
-    public List<UserEntity> getUser(Role role) {
+    public List<UserEntity> getUser() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
             entityManager.getTransaction().begin();
             Query query=entityManager.createNamedQuery("getAllUser");
-            query.setParameter("role",role);
             entityManager.getTransaction().commit();
             return (List<UserEntity>)query.getResultList();
         } catch (Exception e) {
@@ -32,5 +31,42 @@ public class ViewUserRepoImpl implements ViewUserRepo {
             entityManager.close();
         }
 
+    }
+
+    @Override
+    public UserEntity getUserById(int id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNamedQuery("getUserById");
+            query.setParameter("id",id);
+            entityManager.getTransaction().commit();
+            return (UserEntity) query.getSingleResult();
+        }catch (Exception e){
+            System.err.println(e.getMessage());
+            return (UserEntity) Collections.emptyList();
+        }
+        finally {
+            entityManager.close();
+        }
+    }
+
+    @Override
+    public boolean deleteUserById(int id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNamedQuery("deleteUserById");
+            query.setParameter("id",id);
+            query.executeUpdate();
+            entityManager.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+        finally {
+            entityManager.close();
+        }
     }
 }

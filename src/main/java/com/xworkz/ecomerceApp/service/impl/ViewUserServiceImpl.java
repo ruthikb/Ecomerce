@@ -18,14 +18,27 @@ public class ViewUserServiceImpl implements ViewUserService {
     @Autowired
     ViewUserRepo viewUserRepo;
     @Override
-    public List<UserDto> getAllUsers(Role role) {
+    public List<UserDto> getAllUsers() {
         List<UserDto>dtoList=new ArrayList<>();
-        List<UserEntity>entities=viewUserRepo.getUser(role);
+        List<UserEntity>entities=viewUserRepo.getUser();
         entities.stream().forEach(list->{
             UserDto userDto = new UserDto();
             BeanUtils.copyProperties(list,userDto);
             dtoList.add(userDto);
         });
         return dtoList;
+    }
+
+    @Override
+    public UserDto getUserById(int id) {
+        UserDto userDto =new UserDto();
+        UserEntity userEntity=viewUserRepo.getUserById(id);
+        BeanUtils.copyProperties(userEntity,userDto);
+        return userDto;
+    }
+
+    @Override
+    public boolean deleteUserById(int id) {
+        return viewUserRepo.deleteUserById(id);
     }
 }

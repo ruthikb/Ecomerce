@@ -158,7 +158,7 @@
                     <th scope="col">Action</th>
                 </tr>
             </thead>
-             <c:forEach items="${getAllUser}" var="dtoList">
+             <c:forEach items="${listOfCustomer}" var="dtoList">
             <tbody>
             <td>${dtoList.getId()}</td>
             <td>${dtoList.getCustomerName()}</td>
