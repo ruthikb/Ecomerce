@@ -18,7 +18,7 @@ public class Controller {
     @Autowired
     UserService userService;
     @PostMapping("RegisterUser")
-    public ResponseEntity<String> registerUser(@Valid UserDto userDto, BindingResult result) {
+    public ResponseEntity<String> registerUser(@Valid UserDto userDto,  BindingResult result) {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body("Validation failed: " + result.getAllErrors());
         }

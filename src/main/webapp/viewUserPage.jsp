@@ -23,6 +23,7 @@
         }
 
 
+            color: white;
         .navbar {
             position: fixed;
             top: 0;
@@ -67,7 +68,6 @@
 
         footer {
             background-color: black;
-            color: white;
             position: fixed;
             bottom: 0;
             left: 0;
@@ -150,29 +150,30 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>User ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Actions</th>
+                    <th scope="col">User ID</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
+             <c:forEach items="${getAllUser}" var="dtoList">
             <tbody>
-                <c:forEach items="${getAllUser}" var="dtoList">
-                    <tr>
-                        <td>${dtoList.id}</td>
-                        <td>${dtoList.firstName}</td>
-                        <td>${dtoList.lastName}</td>
-                        <td>${dtoList.email}</td>
-                        <td>${dtoList.role}</td>
+
+
+                        <td>${dtoList.getId()}</td>
+                        <td>${dtoList.getFirstName()}</td>
+                        <td>${dtoList.getLastName()}</td>
+                        <td>${dtoList.getEmail()}</td>
+                        <td>${dtoList.getRole() }</td>
                         <td>
-                            <a href="editUser?id=${dtoList.id}" class="bi bi-pencil-square"></a>&nbsp;&nbsp;
-                            <a href="deleteUser?id=${dtoList.id}" class="bi bi-trash"></a>
-                        </td>
-                    </tr>
-                </c:forEach>
+                            <a href="editUser?id=${dtoList.getId()}" <i class="bi bi-pencil-square"></i></a>&nbsp;&nbsp;
+                            <a href="deleteUser?id=${dtoList.getId()}"<i class="bi bi-trash"></i></a></td>
+
+
             </tbody>
+               </c:forEach>
         </table>
       </main>
       <footer>

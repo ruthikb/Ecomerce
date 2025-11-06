@@ -13,8 +13,6 @@
             --accent: #000807;
             --text: #f5f5f5;
         }
-
-
         * {
             margin: 0;
             padding: 0;
@@ -94,6 +92,7 @@
             background-color: var(--accent);
             color: white;
             padding: 12px 25px;
+            
             border: none;
             border-radius: 25px;
             cursor: pointer;

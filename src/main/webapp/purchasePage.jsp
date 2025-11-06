@@ -1,18 +1,10 @@
-<%@ page language="java" contentType="text/html;charset=UTF-8" %>
-<%@ page isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!doctype html>
-<html lang="en">
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Admin-Page</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
+    <meta charset="UTF-8">
+    <title>Purchase Order Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Layout / spacing */
         :root {
@@ -60,8 +52,8 @@
         .sidebar a {
             color: #ddd;
             text-decoration: none;
-        }
 
+        }
         .sidebar a:hover {
             color: #fff;
             text-decoration: none;
@@ -156,7 +148,6 @@
         }
     </style>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
@@ -170,8 +161,7 @@
             </div>
         </div>
     </nav>
-
-        <div class="sidebar border-end">
+    <div class="sidebar border-end">
               <h5 class="text-center border-bottom pb-2 mb-3">Menu</h5>
               <ul class="list-unstyled">
                   <li class="mb-2">
@@ -186,13 +176,103 @@
                   </li>
               </ul>
           </div>
-
     <main>
-        <h2>Welcome, users</h2>
-        <p>This is your user dashboard where you can view and manage your account details.</p>
-    </main>
+    <div class="container mt-5">
+        <h2 class="mb-4">Purchase Order Form</h2>
+        <form action="purchaseDetails" method="POST">
+            <div class="row g-3">
+                <!-- Voucher Type -->
+                <div class="col-md-6">
+                    <label class="form-label">Voucher Type</label>
+                    <select class="form-select" name="voucherType" required>
+                        <option value="sales">Sales</option>
+                        <option value="purchase">Purchase</option>
+                    </select>
+                </div>
 
-    <footer>
+                <!-- Customer Name Dropdown -->
+                <div class="col-md-6">
+                    <label class="form-label">Customer Name</label>
+                    <select class="form-select" name="customerName" required>
+                        <option value="">Select Customer</option>
+
+                    </select>
+                </div>
+
+                <!-- Product Group Name -->
+                <div class="col-md-6">
+                    <label class="form-label">Product Group Name</label>
+                    <select class="form-select" name="productGroup" required>
+                        <option value="">Select Product Group</option>
+                        
+
+                    </select>
+                </div>
+
+                <!-- Make (Company Name) -->
+                <div class="col-md-6">
+                    <label class="form-label">Make (Company Name)</label>
+                    <input type="text" class="form-control" name="make" required>
+                </div>
+
+                <!-- Model -->
+                <div class="col-md-6">
+                    <label class="form-label">Model</label>
+                    <input type="text" class="form-control" name="model" required>
+                </div>
+
+                <!-- Product Code -->
+                <div class="col-md-6">
+                    <label class="form-label">Product Code</label>
+                    <input type="text" class="form-control" name="productCode" required>
+                </div>
+
+                <!-- Item Name (Auto-generated) -->
+                <div class="col-md-6">
+                    <label class="form-label">Item Name</label>
+                    <input type="text" class="form-control" name="itemName" readonly>
+                </div>
+
+                <!-- Opening Value -->
+                <div class="col-md-6">
+                    <label class="form-label">Opening Value (Initial Price)</label>
+                    <input type="number" class="form-control" name="openingValue" value="1000" required>
+                </div>
+
+                <!-- Opening Balance -->
+                <div class="col-md-6">
+                    <label class="form-label">Opening Balance (Stock-in-hand)</label>
+                    <input type="number" class="form-control" name="openingBalance" value="5" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Quantity</label>
+                    <input type="number" class="form-control" name="quantity" value="1" required>
+                </div>
+
+                <!-- Purchase Price -->
+                <div class="col-md-6">
+                    <label class="form-label">Purchase Price</label>
+                    <input type="number" class="form-control" name="purchasePrice" value="1000" required>
+                </div>
+
+                <!-- Order Due Date -->
+                <div class="col-md-6">
+                    <label class="form-label">Order Due Date</label>
+                    <input type="date" class="form-control" name="orderDueDate" required>
+                </div>
+
+
+
+                <!-- Submit Button -->
+                <div class="col-12 mt-4">
+                    <button type="submit" class="btn btn-primary">Submit Order</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    </main>
+     <footer>
         <span id="dateTime" class="date-time"></span>
         <p>&copy; 2025 E-commerce Portal | e-Portal</p>
     </footer>
@@ -206,7 +286,17 @@
         updateDateTime();
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Auto-generate item name from make and model
+        document.querySelectorAll('input[name="make"], input[name="model"], input[name="productCode"]').forEach(input => {
+            input.addEventListener('input', () => {
+                const make = document.querySelector('input[name="make"]').value;
+                const model = document.querySelector('input[name="model"]').value;
+                const productCode = document.querySelector('input[name="productCode"]').value;
+                document.querySelector('input[name="itemName"]').value = make + ' ' + model + ' (' + productCode + ')';
+            });
+        });
+    </script>
 </body>
-
 </html>
