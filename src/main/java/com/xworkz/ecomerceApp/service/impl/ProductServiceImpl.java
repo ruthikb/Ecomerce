@@ -8,24 +8,32 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class ProductServiceImpl implements ProductService {
     @Autowired
-    ProductNameRepo productNameRepo;
-    @Override
-    public String getProductNameService(ProductNameDto productNameDto) {
-        boolean exists=productNameRepo.isProductNameExists(productNameDto.getProductName());
-        if(exists){
-            return "productAlready exists";
-        }
-        ProductNameEntity productNameEntity=new ProductNameEntity();
-        BeanUtils.copyProperties(productNameDto,productNameEntity);
-        boolean saved=productNameRepo.saveProductName(productNameEntity);
-        if(saved){
-            return "Product Name received successfully";
-        }else {
-            return "Failed to receive Product Name";
-        }
+    private ProductNameRepo productListRepo;
 
+    @Override
+    public String saveProduct(ProductNameDto dto) {
+
+        ProductNameEntity product = new ProductNameEntity();
+        BeanUtils.copyProperties(dto, product);
+        productListRepo.saveProductName(product);
+        return null;
     }
+
+    @Override
+    public ProductNameEntity getById(Long productGroupId) {
+        return productListRepo.getById(productGroupId);
+    }
+
+    @Override
+    public List<ProductNameEntity> findAllProductNames() {
+       return Collections.emptyList();
+    }
+
+
 }

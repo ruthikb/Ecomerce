@@ -2,6 +2,7 @@ package com.xworkz.ecomerceApp.service.impl;
 
 import com.xworkz.ecomerceApp.dto.AddCustomerDto;
 import com.xworkz.ecomerceApp.dto.UserDto;
+import com.xworkz.ecomerceApp.dto.enums.CustomerType;
 import com.xworkz.ecomerceApp.entity.AddCustomerEntity;
 import com.xworkz.ecomerceApp.entity.UserEntity;
 import com.xworkz.ecomerceApp.repositry.AddCustomerRepo;
@@ -11,61 +12,96 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
 public class AddCustomerServiceImpl implements AddCoustomerService {
 
     @Autowired
-    AddCustomerRepo addCustomerRepo;
-    @Override
-    public boolean addCustomer(AddCustomerDto addCustomerDto){
-        AddCustomerEntity addCustomerEntity=new AddCustomerEntity();
-        BeanUtils.copyProperties(addCustomerDto,addCustomerEntity);
-        return addCustomerRepo.saveCustomer(addCustomerEntity) ;
-
-    }
+    private AddCustomerRepo repo;
 
     @Override
-    public List<AddCustomerDto> getAllCustomers() {
-        List<AddCustomerDto>dtoList=new ArrayList<>();
-        List<AddCustomerEntity>entities=addCustomerRepo.getAllCoustomers();
-        entities.stream().forEach(list->{
-            AddCustomerDto addCustomerDto=new AddCustomerDto();
-            BeanUtils.copyProperties(list,addCustomerDto);
-            dtoList.add(addCustomerDto);
+    public List<AddCustomerDto> fetchAllCustomers() {
+        List<AddCustomerEntity> entities = repo.findAll();
+        List<AddCustomerDto> dtos = new ArrayList<>();
+        entities.forEach(entity -> {
+            AddCustomerDto dto = new AddCustomerDto();
+            BeanUtils.copyProperties(entity, dto);
+            dtos.add(dto);
         });
-        return dtoList;
+        return dtos;
     }
 
     @Override
-    public AddCustomerDto getCustomersById(int id) {
-        AddCustomerDto addCustomerDto=new AddCustomerDto();
-        AddCustomerEntity entity=addCustomerRepo.getCoustomerById(id);
-        BeanUtils.copyProperties(entity,addCustomerDto);
-        return addCustomerDto;
+    public boolean existsByEmail(String email) {
+        return repo.existsByEmail(email);
     }
 
     @Override
-    public boolean updateCustomerById(int id, AddCustomerDto addCustomerDto) {
-        AddCustomerEntity addCustomerEntity=new AddCustomerEntity();
-        BeanUtils.copyProperties(addCustomerDto,addCustomerEntity);
-        return addCustomerRepo.updateCustomerById(id,addCustomerEntity);
+    public boolean existsByPhone(String phone) {
+        return repo.existsByPhone(phone);
     }
 
     @Override
-    public boolean deleteCustomerById(int id) {
-        System.err.println("service id"+id);
-        return addCustomerRepo.deleteCustomerById(id);
+    public boolean existsByGst(String gst) {
+        return repo.existsByGst(gst);
     }
 
     @Override
-    public UserDto getAdminByName(String email) {
-        UserDto userDto=new UserDto();
-        UserEntity userEntity=addCustomerRepo.getAdminName(email);
-        BeanUtils.copyProperties(userEntity,userEntity);
-        return userDto;
+    public boolean existsByName(String customerName) {
+        return repo.existsByName(customerName);
     }
 
+    @Override
+    public boolean existsByNameAndType(String customerName, String customerType) {
+        return repo.existsByNameAndType(customerName, customerType);
+    }
+
+
+    @Override
+    public AddCustomerDto fetchById(int id) {
+        AddCustomerEntity entity = repo.getById(id);
+        AddCustomerDto dto = new AddCustomerDto();
+        BeanUtils.copyProperties(entity, dto);
+        return dto;
+    }
+
+    @Override
+    public boolean saveCustomer(AddCustomerDto dto) {
+        AddCustomerEntity entity = new AddCustomerEntity();
+        BeanUtils.copyProperties(dto, entity);
+        return repo.save(entity) != null;
+    }
+
+    @Override
+    public void updateCustomer(AddCustomerDto dto) {
+        AddCustomerEntity entity = repo.getById( dto.getId());
+        if (entity != null) {
+            BeanUtils.copyProperties(dto, entity);
+            repo.save(entity);
+        }
+    }
+
+    @Override
+    public boolean deleteById(int id) {
+        return repo.deleteById(id);
+    }
+
+    @Override
+    public List<AddCustomerEntity> findAllDebitCustomers() {
+
+        return Collections.emptyList();
+    }
+
+//    @Override
+//    public List<AddCustomerEntity> findAllDebitCustomers() {
+//        return repo.getDebitCustomers();
+//    }
+
+    @Override
+    public AddCustomerEntity getById(int customerId) {
+        return repo.getById(customerId);
+    }
 
 }

@@ -8,11 +8,12 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.*;
+import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class UserDto{
 
     private  int id;
     @NotBlank(message = "First name is required")

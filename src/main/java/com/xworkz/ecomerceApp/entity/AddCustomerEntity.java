@@ -15,10 +15,30 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "getAllCustomer",query = " from AddCustomerEntity"),
-        @NamedQuery(name = "getCustomerById",query = "from AddCustomerEntity where id=:id"),
-        @NamedQuery(name = "deleteCustomer",query = "delete from AddCustomerEntity  where id=:id"),
-//        @NamedQuery(name = "viewCustomerByEmail",query = "from AddCustomerEntity where email=:email")
+        @NamedQuery(
+                name = "AddCustomerEntity.existsByEmail", query = "SELECT COUNT(a) FROM AddCustomerEntity a WHERE a.email = :email" ),
+        @NamedQuery(
+                name = "AddCustomerEntity.existsByPhone",query = "SELECT COUNT(a) FROM AddCustomerEntity a WHERE a.contactNumber = :phone" ),
+        @NamedQuery(
+                name = "AddCustomerEntity.existsByGst",query = "SELECT COUNT(a) FROM AddCustomerEntity a WHERE a.gstNumber= :gst" ),
+        @NamedQuery(
+                name = "AddCustomerEntity.existsByName",query = "SELECT COUNT(a) FROM AddCustomerEntity a WHERE a.customerName = :customerName"
+        ),
+        @NamedQuery(
+                name = "AddCustomerEntity.existsByNameAndType", query = "SELECT COUNT(a) FROM AddCustomerEntity a WHERE a.customerName = :customerName AND a.customerType = :customerType"
+        ),
+        @NamedQuery(
+                name = "AddCustomerEntity.findAll",query = "SELECT a FROM AddCustomerEntity a"
+        ),
+        @NamedQuery(
+                name = "AddCustomerEntity.getById", query = "SELECT a FROM AddCustomerEntity a WHERE a.id = :id"
+        ),
+        @NamedQuery(
+                name = "AddCustomerEntity.findByType",query = "SELECT a FROM AddCustomerEntity a WHERE a.customerType = :type"
+        )
+//        @NamedQuery(
+//                name = "getDebitCustomers", query = "SELECT a FROM AddCustomerEntity a WHERE a.customerType = type('debtor')"
+//        )
 })
 public class AddCustomerEntity {
     @Id

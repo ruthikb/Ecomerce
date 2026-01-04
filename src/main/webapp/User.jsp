@@ -180,7 +180,7 @@
                       </a>
                   </li>
                   <li class="mb-2">
-                      <a href="purchase" class="d-block py-2 px-3 text-white rounded hover-item">
+                          <a href="addPurchase" class="d-block py-2 px-3 text-white rounded hover-item">
                            <i class="bi bi-box me-2"></i> purchase
                       </a>
                   </li>

@@ -4,38 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class purchaseDto {
-
-
+public class PurchaseDto {
     private String voucherType;
-
-
-    private String customerName;
-
-
-    private String productGroupName;
-
-
+    private Long customerId;
+    private Long productGroupId;
     private String make;
-
     private String model;
-
     private String productCode;
-
-
     private String itemName;
+    private double openingValue;
+    private int openingBalance;
+    private double purchasePrice;
 
-
-    private Double openingValue;
-
-    private Integer openingBalance;
-
-    private  Integer quantity;
-
-    private Double purchasePrice;
-
-
+    private LocalDate orderDueDate;
 }

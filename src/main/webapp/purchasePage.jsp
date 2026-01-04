@@ -1,4 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -179,97 +182,102 @@
     <main>
     <div class="container mt-5">
         <h2 class="mb-4">Purchase Order Form</h2>
-        <form action="purchaseDetails" method="POST">
-            <div class="row g-3">
-                <!-- Voucher Type -->
-                <div class="col-md-6">
-                    <label class="form-label">Voucher Type</label>
-                    <select class="form-select" name="voucherType" required>
-                        <option value="sales">Sales</option>
-                        <option value="purchase">Purchase</option>
-                    </select>
-                </div>
+       <form action="savePurchase" method="post" enctype="application/x-www-form-urlencoded">
 
-                <!-- Customer Name Dropdown -->
-                <div class="col-md-6">
-                    <label class="form-label">Customer Name</label>
-                    <select class="form-select" name="customerName" required>
-                        <option value="">Select Customer</option>
+    <div class="mb-3">
+      <label>Voucher Type</label>
+      <select name="voucherType" class="form-select">
 
-                    </select>
-                </div>
+        <option value="Purchase" selected>Purchase</option>
+      </select>
+    </div>
 
-                <!-- Product Group Name -->
-                <div class="col-md-6">
-                    <label class="form-label">Product Group Name</label>
-                    <select class="form-select" name="productGroup" required>
-                        <option value="">Select Product Group</option>
-                        
+  <div class="mb-3">
+    <label>Customer Name</label>
+    <select name="customerId" class="form-select" required>
+      <c:if test="${empty customers}">
+        <option disabled>No customers available</option>
+      </c:if>
+      <c:forEach var="c" items="${customers}">
+        <!-- use properties that exist on your Customer object -->
+        <option value="${c.id}">${c.customerName}</option>
+      </c:forEach>
+    </select>
+  </div>
 
-                    </select>
-                </div>
+  <div class="mb-3">
+    <label>Product Group Name</label>
+    <select name="productGroupId" class="form-select" required>
 
-                <!-- Make (Company Name) -->
-                <div class="col-md-6">
-                    <label class="form-label">Make (Company Name)</label>
-                    <input type="text" class="form-control" name="make" required>
-                </div>
+      <c:forEach var="group" items="${productGroups}">
+        <option> ${group} </option>
+      </c:forEach>
+    </select>
+  </div>
 
-                <!-- Model -->
-                <div class="col-md-6">
-                    <label class="form-label">Model</label>
-                    <input type="text" class="form-control" name="model" required>
-                </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label>Make</label>
+        <input name="make" class="form-control" required>
+      </div>
+      <div class="col-md-4">
+        <label>Model</label>
+        <input name="model" class="form-control" required>
+      </div>
+      <div class="col-md-4">
+        <label>Product Code</label>
+        <input name="productCode" class="form-control">
+      </div>
+    </div>
 
-                <!-- Product Code -->
-                <div class="col-md-6">
-                    <label class="form-label">Product Code</label>
-                    <input type="text" class="form-control" name="productCode" required>
-                </div>
+    <div class="mb-3 mt-3">
+      <label>Item Name</label>
+      <input name="itemName" class="form-control" required>
+    </div>
 
-                <!-- Item Name (Auto-generated) -->
-                <div class="col-md-6">
-                    <label class="form-label">Item Name</label>
-                    <input type="text" class="form-control" name="itemName" readonly>
-                </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label>Opening Value</label>
+        <input type="number" name="openingValue" value="1000" class="form-control" required>
+      </div>
+      <div class="col-md-4">
+        <label>Opening Balance</label>
+        <input type="number" name="openingBalance" value="5" class="form-control" required>
+      </div>
+      <div class="col-md-4">
+        <label>Purchase Price</label>
+        <input type="number" name="purchasePrice" value="1000" class="form-control" required>
+      </div>
+    </div>
 
-                <!-- Opening Value -->
-                <div class="col-md-6">
-                    <label class="form-label">Opening Value (Initial Price)</label>
-                    <input type="number" class="form-control" name="openingValue" value="1000" required>
-                </div>
+    <!-- ✅ Important fix: ensure correct date format -->
+    <div class="mb-3 mt-3">
+      <label>Order Due Date</label>
+      <input type="date" name="orderDueDate" class="form-control" required
+             pattern="\d{4}-\d{2}-\d{2}" placeholder="yyyy-MM-dd">
+    </div>
 
-                <!-- Opening Balance -->
-                <div class="col-md-6">
-                    <label class="form-label">Opening Balance (Stock-in-hand)</label>
-                    <input type="number" class="form-control" name="openingBalance" value="5" required>
-                </div>
+    <!-- Order Button Opens Popup -->
+    <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#confirmPopup">Order</button>
 
-                <div class="col-md-6">
-                    <label class="form-label">Quantity</label>
-                    <input type="number" class="form-control" name="quantity" value="1" required>
-                </div>
-
-                <!-- Purchase Price -->
-                <div class="col-md-6">
-                    <label class="form-label">Purchase Price</label>
-                    <input type="number" class="form-control" name="purchasePrice" value="1000" required>
-                </div>
-
-                <!-- Order Due Date -->
-                <div class="col-md-6">
-                    <label class="form-label">Order Due Date</label>
-                    <input type="date" class="form-control" name="orderDueDate" required>
-                </div>
-
-
-
-                <!-- Submit Button -->
-                <div class="col-12 mt-4">
-                    <button type="submit" class="btn btn-primary">Submit Order</button>
-                </div>
-            </div>
-        </form>
+    <!-- Popup -->
+    <div class="modal fade" id="confirmPopup" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header"><h5>Confirm Purchase (Pending)</h5></div>
+          <div class="modal-body">
+            <p><b>Price:</b> <span id="priceDisplay"></span></p>
+            <p><b>Quantity:</b> <span id="qtyDisplay"></span></p>
+            <p class="text-warning">Status will be <b>PENDING</b></p>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Confirm & Save</button>
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
     </div>
     </main>
      <footer>

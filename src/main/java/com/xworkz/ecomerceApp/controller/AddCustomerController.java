@@ -1,17 +1,16 @@
 package com.xworkz.ecomerceApp.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import com.xworkz.ecomerceApp.dto.AddCustomerDto;
-import com.xworkz.ecomerceApp.dto.UserDto;
+
+import com.xworkz.ecomerceApp.dto.enums.CustomerType;
 import com.xworkz.ecomerceApp.service.AddCoustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
@@ -20,96 +19,82 @@ import java.util.List;
 public class AddCustomerController {
 
     @Autowired
-    AddCoustomerService service;
+    private AddCoustomerService service;
 
-    @GetMapping("addCustomerPage")
-    public String addCustomerPage() {
+    @GetMapping("/addCustomerPage")
+    public String showAddCustomerPage() {
         return "addCustomerPage";
     }
-//    @GetMapping("viewCustomer")
-//    public  String viewCustomer(){
-//        return "viewCustomer";
-//    }
 
-    @PostMapping("addCustomer")
-    public String addCustomer(@Valid AddCustomerDto addCustomerDto, BindingResult result) {
-        if (result.hasErrors()) {
-            return "addCustomerPage";
-        }
-        System.err.println(addCustomerDto +"=============");
-        service.addCustomer(addCustomerDto);
-        return "Admin";
-    }
 
-    @GetMapping("/getAllCustomers")
-    public String getCustomer(
+    // ✅ View All Customer Profiles with Pagination
+    @GetMapping("getAllCustomers")
+    public String getAllProfiles(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             Model model) {
 
-        List<AddCustomerDto> dtoList = service.getAllCustomers();
-
-        int totalCustomers = dtoList.size();
+        List<AddCustomerDto> allCustomers = service.fetchAllCustomers();
+        int totalCustomers = allCustomers.size();
         int totalPages = (int) Math.ceil((double) totalCustomers / size);
 
-        int start = (page - 1) * size;
-        int end = Math.min(start + size, totalCustomers);
+        int startIndex = (page - 1) * size;
+        int endIndex = Math.min(startIndex + size, totalCustomers);
 
-        List<AddCustomerDto> pagedCustomers = dtoList.subList(start, end);
+        List<AddCustomerDto> pageList = allCustomers.subList(startIndex, endIndex);
 
-        model.addAttribute("listOfCustomer", pagedCustomers);
+        model.addAttribute("listOfCustomers", pageList);
         model.addAttribute("totalCustomers", totalCustomers);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("pageSize", size);
+        model.addAttribute("startIndex", startIndex + 1);
+        model.addAttribute("endIndex", endIndex);
 
         return "viewCustomer";
     }
-
-
+    // ✅ Show Edit Form
     @GetMapping("getCustomer")
-    public String getCustomer(@RequestParam("id") int id, Model model) {
-        AddCustomerDto addCustomerDto = service.getCustomersById(id);
-        model.addAttribute("getSingleUser", addCustomerDto);
-        return "updateCustomer";
+    public String editCustomer(@RequestParam("id") int id, Model model) {
+        AddCustomerDto customer = service.fetchById(id);
+        model.addAttribute("customer", customer);
+        return "updateCustomer"; // ✅ editCustomer.jsp
+    }
+    @PostMapping("addCustomer")
+    public  String addCustomer(@Valid AddCustomerDto addCustomerDto, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            return "addCustomerPage";
+        }
+        boolean isSaved = service.saveCustomer(addCustomerDto);
+        if (isSaved) {
+            redirectAttributes.addFlashAttribute("message", "Customer added successfully!");
+            return "redirect:/getAllCustomers";
+        } else {
+            model.addAttribute("errorMessage", "Failed to add customer. Please try again.");
+            return "addCustomerPage";
+        }
     }
 
     @PostMapping("updateCustomerById")
-    public String updateCustomerById(@RequestParam("id")int id,AddCustomerDto addCustomerDto, Model model) {
-        service.updateCustomerById(id,addCustomerDto);
-        List<AddCustomerDto> dtoList = service.getAllCustomers();
+    public String saveCustomer(@RequestParam("id") int id,AddCustomerDto addCustomerDto,Model model) {
+        service.updateCustomer(addCustomerDto);
+        List<AddCustomerDto> dtoList = (List<AddCustomerDto>) service.getById(id);
         dtoList.stream().forEach(System.err::println);
         model.addAttribute("listOfCustomer", dtoList);
         return "viewCustomer";
     }
 
-//    @GetMapping("deleteCustomer")
-//    public RedirectView deleteCustomerByEmail(@RequestParam("email") String email, HttpServletRequest request,Model model){
-//
-//        System.err.println(email);
-//        service.deleteCustomerByEmail(email);
-//        RedirectView redirectView = new RedirectView();
-//        redirectView.setUrl(request.getContextPath() + "/viewCustomer");
-//        return redirectView;
-//    }
+
 
     @GetMapping("deleteCustomer")
     public String deleteCustomerById(@RequestParam("id") int  id, HttpServletRequest request,Model model){
 
         System.err.println(id);
-        service.deleteCustomerById(id);
-        List<AddCustomerDto> dtoList = service.getAllCustomers();
+        service.deleteById( id);
+        List<AddCustomerDto> dtoList = service.fetchAllCustomers();
         dtoList.stream().forEach(System.err::println);
         model.addAttribute("listOfCustomer", dtoList);
         return "viewCustomer";
     }
-//    @GetMapping("getAdminName")
-//    public  String getAdminName(@RequestParam("email")String  email,Model model){
-//        UserDto userDto=service.getAdminByName(email);
-//        model.addAttribute("getName",userDto);
-//        return "admin";
-//    }
-
-//
 
 }

@@ -12,9 +12,12 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@NamedQueries(
-        @NamedQuery(name = "isProductNameExists",query = "from ProductNameEntity  where productName=:productName")
-)
+@NamedQueries({
+//        @NamedQuery(name = "isProductNameExists",query = "from ProductNameEntity  where productName=:productName"),
+        @NamedQuery(name = "getProductById", query = "from ProductNameEntity where id=:id"),
+        @NamedQuery(name = "findAllProductNames", query = "from ProductNameEntity where id is not null")
+
+})
 public class ProductNameEntity {
 
     @Id

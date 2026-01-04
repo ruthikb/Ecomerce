@@ -47,7 +47,6 @@ public class WebConfig implements WebMvcConfigurer{
 
     @Bean
     public InternalResourceViewResolver internalResourceViewResolver(){
-
         return new InternalResourceViewResolver("/",".jsp");
     }
 

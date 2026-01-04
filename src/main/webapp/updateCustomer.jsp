@@ -151,30 +151,30 @@
                         
                         <div class="col-md-6">
                             
-                            <input type="number" name="id" hidden value="${getSingleUser.getId()}">
+                            <input type="number" name="id" hidden value="${customer.getId()}">
                             <label class="form-label">Customer Name</label>
                             <input type="text" class="form-control" name="customerName"
-                                value="${getSingleUser.getCustomerName()}" required>
+                                value="${customer.getCustomerName()}" required>
 
                             <label class="form-label mt-3">Customer Type</label>
                             <select class="form-select" name="customerType" required>
                                 <option value="">Select Type</option>
-                                <option value="creditor" <c:if test="${getSingleUser.getCustomerType() == 'creditor'}">
+                                <option value="creditor" <c:if test="${customer.getCustomerType() == 'creditor'}">
                                     selected</c:if>>Creditor</option>
-                                <option value="debtor" <c:if test="${getSingleUser.getCustomerType() == 'debtor'}">selected
+                                <option value="debtor" <c:if test="${customer.getCustomerType() == 'debtor'}">selected
                                     </c:if>>Debtor</option>
                             </select>
 
                             <label class="form-label mt-3">Email</label>
-                            <input type="email" class="form-control" name="email" value="${getSingleUser.getEmail()}"
+                            <input type="email" class="form-control" name="email" value="${customer.getEmail()}"
                                 required>
 
                             <label class="form-label mt-3">Contact Number</label>
                             <input type="text" class="form-control" name="contactNumber"
-                                value="${getSingleUser.getContactNumber()}" required>
+                                value="${customer.getContactNumber()}" required>
 
                             <label class="form-label mt-3">GST Number</label>
-                            <input type="text" class="form-control" name="gstNumber" value="${getSingleUser.getGstNumber()}">
+                            <input type="text" class="form-control" name="gstNumber" value="${customer.getGstNumber()}">
 
                             <label class="form-label mt-3">Country</label>
                             <input type="text" class="form-control" name="country" value="India" readonly>
@@ -182,37 +182,37 @@
 
                         <div class="col-md-6">
                             <label class="form-label mt-3">Pin Code</label>
-                            <input type="text" class="form-control" name="pinCode" value="${getSingleUser.getPinCode()}"
+                            <input type="text" class="form-control" name="pinCode" value="${customer.getPinCode()}"
                                 onchange="checkPinCode()" required>
                             <div id="stateCityError" class="text-danger small mt-2"></div>
                             <label class="form-label">State</label>
                             <select class="form-select" id="state" name="state" required>
 
                                 <option value="${getSingleUser.getState()}" <c:if
-                                    test="${getSingleUser.getState() == 'getSingleUser.getState()'}">selected</c:if>
+                                    test="${customer.getState() == 'customer.getState()'}">selected</c:if>
                                     >${getSingleUser.getState()}</option>
                                 <option value="">Select State</option>
                             </select>
 
                             <label class="form-label mt-3">City</label>
                             <input type="text" class="form-control" id="city" name="city"
-                                value="${getSingleUser.getCity()}" required>
+                                value="${customer.getCity()}" required>
                              <label class="form-label">Do you want shipping address same as billing address?</label>
                             <div>
-                                <input type="radio" name="sameAddress" value="${getSingleUser.getSameAddress()}"
+                                <input type="radio" name="sameAddress" value="${customer.getSameAddress()}"
                                     id="sameYes">
                                 <label for="sameYes">Yes</label>
-                                <input type="radio" name="sameAddress" value="${getSingleUser.getSameAddress()}" id="sameNo"
+                                <input type="radio" name="sameAddress" value="${customer.getSameAddress()}" id="sameNo"
                                     class="ms-3">
                                 <label for="sameNo">No</label>
                             </div>
 
                             <label class="form-label mt-3">Shipping Address</label>
                             <input type="text" class="form-control" name="shippingAddress"
-                                value="${getSingleUser.getShippingAddress()}" id="shippingAddress">
+                                value="${customer.getShippingAddress()}" id="shippingAddress">
                             
                             <label class="form-label mt-3">Address</label>
-                            <input type="text" class="form-control" name="address" value="${getSingleUser.getAddress()}"
+                            <input type="text" class="form-control" name="address" value="${customer.getAddress()}"
                                 required>
 
                             
@@ -221,24 +221,24 @@
                         <div class="col-12 mt-3">
                            <label class="form-label mt-3">Billing Address</label>
                             <input type="text" class="form-control" name="billingAddress"
-                                value="${getSingleUser.billingAddress}" id="billingAddress">
+                                value="${customer.billingAddress}" id="billingAddress">
                         </div>
 
                         <div class="col-12 mt-3">
                             <label class="form-label">Payment Mode</label><br>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="paymentMode" value="online"
-                                    id="online" ${getSingleUser.paymentMode=='online' ? 'checked' : '' }>
+                                    id="online" ${customer.paymentMode=='online' ? 'checked' : '' }>
                                 <label class="form-check-label" for="online">Online</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="paymentMode" value="cash" id="cash"
-                                    ${getSingleUser.paymentMode=='cash' ? 'checked' : '' }>
+                                    ${customer.paymentMode=='cash' ? 'checked' : '' }>
                                 <label class="form-check-label" for="cash">Cash</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="paymentMode" value="cheque"
-                                    id="cheque" ${getSingleUser.paymentMode=='cheque' ? 'checked' : '' }>
+                                    id="cheque" ${customer.paymentMode=='cheque' ? 'checked' : '' }>
                                 <label class="form-check-label" for="cheque">Cheque</label>
                             </div>
                         </div>

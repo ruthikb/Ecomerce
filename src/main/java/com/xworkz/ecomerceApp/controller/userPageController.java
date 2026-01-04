@@ -1,19 +1,10 @@
 package com.xworkz.ecomerceApp.controller;
 
-import com.xworkz.ecomerceApp.dto.ProductNameDto;
-import com.xworkz.ecomerceApp.dto.purchaseDto;
 import com.xworkz.ecomerceApp.service.ProductService;
-import com.xworkz.ecomerceApp.service.PurchaseService;
-import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.validation.Valid;
-import java.util.List;
 
 @RequestMapping("/")
 @Controller
