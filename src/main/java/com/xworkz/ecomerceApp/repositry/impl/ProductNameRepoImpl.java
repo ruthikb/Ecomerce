@@ -17,75 +17,51 @@ public class ProductNameRepoImpl implements ProductNameRepo {
     @Autowired
     EntityManagerFactory entityManagerFactory;
 
-//    @Override
-//    public boolean isProductNameExists(String productName) {
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//        try {
-//            entityManager.getTransaction().begin();
-//            Query query = entityManager.createNamedQuery("isProductNameExists");
-//            query.setParameter("productName", productName);
-//            entityManager.getTransaction().commit();
-//            Object result = query.getSingleResult();
-//            return true;
-//        } catch (Exception e) {
-//            System.err.println(e.getMessage());
-//            return false;
-//        } finally {
-//            entityManager.close();
-//        }
-//    }
-
     @Override
-    public boolean saveProductName(ProductNameEntity productNameEntity) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+    public List<ProductNameEntity> findAllProductGroupName() {
         try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(productNameEntity);
-            entityManager.getTransaction().commit();
-            return true;
-
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            return false;
-        } finally {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            Query query = entityManager.createQuery("SELECT p FROM ProductNameEntity p");
+            List<ProductNameEntity> productNames = query.getResultList();
             entityManager.close();
-        }
-
-
-    }
-
-    @Override
-    public ProductNameEntity getById(Long id) {
-        EntityManager  entityManager=entityManagerFactory.createEntityManager();
-        try{
-          entityManager.getTransaction().begin();
-            Query query = entityManager.createNamedQuery("getProductById");
-            entityManager.getTransaction().commit();
-            return (ProductNameEntity) query.getSingleResult();
-        }
-        catch (Exception e) {
+            return productNames;
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        finally {
-            entityManager.close();
-        }
-        return null;
+        return Collections.emptyList();
+
     }
 
     @Override
-    public List<ProductNameEntity> findAllProductNames() {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+    public void save(ProductNameEntity productGroupEntity) {
         try {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
-            Query query = entityManager.createNamedQuery("getAllProductNames");
+            entityManager.persist(productGroupEntity);
             entityManager.getTransaction().commit();
-            return (List<ProductNameEntity>) query.getResultList();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        finally {
             entityManager.close();
         }
-        return Collections.emptyList();
+        catch (Exception e){
+            e.printStackTrace();
+
+    }
+
+}
+
+    @Override
+    public List<ProductNameEntity> fetchProductNames() {
+        entityManagerFactory=null;
+        try {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            Query query= entityManager.createQuery("select p from ProductNameEntity p");
+            return query.getResultList();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+        finally {
+            entityManagerFactory.close();
+        }
     }
 }

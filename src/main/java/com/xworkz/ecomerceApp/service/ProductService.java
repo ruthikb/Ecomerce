@@ -6,10 +6,12 @@ import com.xworkz.ecomerceApp.entity.ProductNameEntity;
 import java.util.List;
 
 public interface ProductService {
-    String saveProduct(ProductNameDto dto);
+    boolean validateAndAddGroupName  (String productGroupName);
 
-    ProductNameEntity getById(Long productGroupId);
-    List<ProductNameEntity> findAllProductNames();
+    List<String> fetchProducts();
+
+//    ProductNameEntity getById(Long productGroupId);
+//    List<ProductNameEntity> findAllProductNames();
 
 
 }

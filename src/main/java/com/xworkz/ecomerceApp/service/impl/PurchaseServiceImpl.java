@@ -34,11 +34,11 @@ public class PurchaseServiceImpl implements PurchaseService{
         if (dto.getCustomerId() != null) {
             customer = customerService.getById(dto.getCustomerId().intValue());
         }
-        if (dto.getProductGroupId() != null) {
-            productGroup = productGroupService.getById(dto.getProductGroupId());
-        }
+//        if (dto.getProductGroupId() != null) {
+//            productGroup = productGroupService.fetchProducts(dto.getProductGroupId());
+//        }
 
-        if (customer == null || productGroup == null) {
+        if (customer == null || productGroup == null){
 
             return false;
         }
