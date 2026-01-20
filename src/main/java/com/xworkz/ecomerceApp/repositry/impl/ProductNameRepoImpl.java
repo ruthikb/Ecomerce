@@ -17,20 +17,6 @@ public class ProductNameRepoImpl implements ProductNameRepo {
     @Autowired
     EntityManagerFactory entityManagerFactory;
 
-    @Override
-    public List<ProductNameEntity> findAllProductGroupName() {
-        try {
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            Query query = entityManager.createQuery("SELECT p FROM ProductNameEntity p");
-            List<ProductNameEntity> productNames = query.getResultList();
-            entityManager.close();
-            return productNames;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Collections.emptyList();
-
-    }
 
     @Override
     public void save(ProductNameEntity productGroupEntity) {
@@ -49,19 +35,36 @@ public class ProductNameRepoImpl implements ProductNameRepo {
 }
 
     @Override
-    public List<ProductNameEntity> fetchProductNames() {
-        entityManagerFactory=null;
+    public List<ProductNameEntity> findById(int id) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         try {
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            Query query= entityManager.createQuery("select p from ProductNameEntity p");
+            Query query = entityManager.createNamedQuery("getNameById");
+            query.setParameter("id", id);
             return query.getResultList();
+        } finally {
+            entityManager.close();
         }
-        catch (Exception e){
-            e.printStackTrace();
-            return Collections.emptyList();
+    }
+
+    @Override
+    public List<ProductNameEntity> findAllProductNames() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            Query query = entityManager.createNamedQuery("getAllProductNames");
+            return query.getResultList();
+        } finally {
+            entityManager.close();
         }
-        finally {
-            entityManagerFactory.close();
+    }
+
+    @Override
+    public List<String> findAllProductNamesOnly() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            Query query = entityManager.createNamedQuery("getAllProductNamesOnly");
+            return query.getResultList();
+        } finally {
+            entityManager.close();
         }
     }
 }

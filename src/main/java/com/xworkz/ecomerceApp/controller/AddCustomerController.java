@@ -5,6 +5,8 @@ import com.xworkz.ecomerceApp.dto.AddCustomerDto;
 import com.xworkz.ecomerceApp.dto.enums.CustomerType;
 import com.xworkz.ecomerceApp.service.AddCoustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -95,6 +97,14 @@ public class AddCustomerController {
         dtoList.stream().forEach(System.err::println);
         model.addAttribute("listOfCustomer", dtoList);
         return "viewCustomer";
+    }
+    @GetMapping("getDebtorCustomerTypes")
+    public ResponseEntity<?> getDebtorCustomerTypes() {
+        List<String> debtorTypes = service.getDebtorCustomerTypes();
+        if (debtorTypes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No debtor customer types found");
+        }
+        return ResponseEntity.ok(debtorTypes);
     }
 
 }

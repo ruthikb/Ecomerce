@@ -36,8 +36,8 @@ public class PurchaseController{
                                    @RequestParam(required = false) String customerName,
                                    Model model) {
 
-//        List<ProductNameEntity> productGroups = productService.findAllProductNames();
-        List<AddCustomerDto> customers = service.fetchAllCustomers();
+//       List<String> productGroups = productService.getAllProductNamesOnly();
+        List<String> customers = service.getDebtorCustomerTypes();
 
 //        model.addAttribute("productGroups", productGroups);
         model.addAttribute("voucherType", voucherType);

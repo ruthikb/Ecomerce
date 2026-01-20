@@ -35,10 +35,8 @@ import javax.persistence.*;
         ),
         @NamedQuery(
                 name = "AddCustomerEntity.findByType",query = "SELECT a FROM AddCustomerEntity a WHERE a.customerType = :type"
-        )
-//        @NamedQuery(
-//                name = "getDebitCustomers", query = "SELECT a FROM AddCustomerEntity a WHERE a.customerType = type('debtor')"
-//        )
+        ),
+        @NamedQuery(name ="getDebtorCustomerTypes",query = "SELECT a FROM AddCustomerEntity a WHERE a.customerType = 'debtor'")
 })
 public class AddCustomerEntity {
     @Id

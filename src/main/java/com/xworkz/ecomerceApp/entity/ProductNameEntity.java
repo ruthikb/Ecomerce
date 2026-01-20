@@ -14,9 +14,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @NamedQueries({
 //        @NamedQuery(name = "isProductNameExists",query = "from ProductNameEntity  where productName=:productName"),
-        @NamedQuery(name = "getProductById", query = "from ProductNameEntity where id=:id"),
-        @NamedQuery(name = "findAllProductNames", query = "from ProductNameEntity where id is not null")
-
+       @NamedQuery(name = "getNameById",query = "from ProductNameEntity where id=:id"),
+        @NamedQuery(name = "getAllProductNames",query = "from ProductNameEntity"),
+        @NamedQuery(name = "getAllProductNamesOnly",query = "select productName from ProductNameEntity")
 })
 public class ProductNameEntity {
 

@@ -34,30 +34,9 @@ public class AddCustomerServiceImpl implements AddCoustomerService {
     }
 
     @Override
-    public boolean existsByEmail(String email) {
-        return repo.existsByEmail(email);
+    public List<String> getDebtorCustomerTypes() {
+        return repo.findDebtorCustomerTypes();
     }
-
-    @Override
-    public boolean existsByPhone(String phone) {
-        return repo.existsByPhone(phone);
-    }
-
-    @Override
-    public boolean existsByGst(String gst) {
-        return repo.existsByGst(gst);
-    }
-
-    @Override
-    public boolean existsByName(String customerName) {
-        return repo.existsByName(customerName);
-    }
-
-    @Override
-    public boolean existsByNameAndType(String customerName, String customerType) {
-        return repo.existsByNameAndType(customerName, customerType);
-    }
-
 
     @Override
     public AddCustomerDto fetchById(int id) {
@@ -86,12 +65,6 @@ public class AddCustomerServiceImpl implements AddCoustomerService {
     @Override
     public boolean deleteById(int id) {
         return repo.deleteById(id);
-    }
-
-    @Override
-    public List<AddCustomerEntity> findAllDebitCustomers() {
-
-        return Collections.emptyList();
     }
 
 //    @Override

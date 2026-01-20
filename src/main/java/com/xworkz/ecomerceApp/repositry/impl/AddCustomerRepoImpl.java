@@ -21,91 +21,7 @@ public class AddCustomerRepoImpl implements AddCustomerRepo {
 
 
 
-    @Override
-    public boolean existsByEmail(String email) {
-        try {
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
-            Query query = entityManager.createNamedQuery("AddCustomerEntity.existsByEmail");
-            query.setParameter("email", email);
-            Object result = query.getSingleResult();
-            entityManager.getTransaction().commit();
-            entityManager.close();
-            return true;
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        return false;
-    }
 
-    @Override
-    public boolean existsByPhone(String phone) {
-        try {
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
-            Query query = entityManager.createNamedQuery("AddCustomerEntity.existsByPhone");
-            query.setParameter("phone", phone);
-            Object result = query.getSingleResult();
-            entityManager.getTransaction().commit();
-            entityManager.close();
-            return true;
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        return false;
-    }
-
-    @Override
-    public boolean existsByGst(String gst) {
-        try {
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
-            Query query = entityManager.createNamedQuery("AddCustomerEntity.existsByGst");
-            query.setParameter("gst", gst);
-            Object result = query.getSingleResult();
-            entityManager.getTransaction().commit();
-            entityManager.close();
-            return true;
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        return false;
-    }
-
-    @Override
-    public boolean existsByName(String customerName) {
-        try{
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
-            Query query = entityManager.createNamedQuery("AddCustomerEntity.existsByName");
-            query.setParameter("customerName", customerName);
-            Object result = query.getSingleResult();
-            entityManager.getTransaction().commit();
-            entityManager.close();
-            return true;
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        return false;
-    }
-
-    @Override
-    public boolean existsByNameAndType(String customerName, String customerType) {
-        try{
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
-            Query query = entityManager.createNamedQuery("AddCustomerEntity.existsByNameAndType");
-            query.setParameter("customerName", customerName);
-            query.setParameter("customerType", customerType);
-            Object result = query.getSingleResult();
-            entityManager.getTransaction().commit();
-            entityManager.close();
-            return true;
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        return false;
-    }
 
     @Override
     public AddCustomerEntity save(AddCustomerEntity entity) {
@@ -188,6 +104,18 @@ public class AddCustomerRepoImpl implements AddCustomerRepo {
             System.err.println(e.getMessage());
         }
         return Collections.emptyList();
+    }
+
+    @Override
+    public List<String> findDebtorCustomerTypes() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+            Query query = entityManager.createNamedQuery("getDebtorCustomerTypes");
+            query.setParameter("type", "debtor");
+            return query.getResultList();
+        } finally {
+            entityManager.close();
+        }
     }
 
 //    @Override

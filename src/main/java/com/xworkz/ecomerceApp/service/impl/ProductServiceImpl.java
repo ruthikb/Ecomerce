@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -20,23 +19,38 @@ public class ProductServiceImpl implements ProductService {
     private ProductNameRepo productListRepo;
 
 
+
+
     @Override
-    public boolean validateAndAddGroupName(String productGroupName) {
-        List<ProductNameEntity> all = productListRepo.findAllProductGroupName();
-        for (ProductNameEntity productGroupEntity : all) {
-            if (productGroupEntity.getProductName().equals(productGroupName)) {
-                return false;
-            }
+    public void saveProduct(ProductNameDto dto) {
+        if (dto == null) {
+            throw new IllegalArgumentException("ProductNameDto cannot be null");
         }
-        ProductNameEntity productGroupEntity = new ProductNameEntity();
-        productGroupEntity.setProductName(productGroupName);
-        productListRepo.save(productGroupEntity);
-        return true;
+        else {
+            System.out.println("ProductNameDto is valid");
+            ProductNameEntity entity = new ProductNameEntity();
+            BeanUtils.copyProperties(dto, entity);
+            productListRepo.save(entity);
+        }
+
+
+
+
     }
 
     @Override
-    public List<String> fetchProducts() {
-        return productListRepo.fetchProductNames().stream().map(ProductNameEntity::getProductName).collect(Collectors.toList());
+    public List<ProductNameEntity> getAllProductNamesById(int id) {
+        return productListRepo.findById(id);
+    }
+
+    @Override
+    public List<ProductNameEntity> getAllProductNames() {
+        return productListRepo.findAllProductNames();
+    }
+
+    @Override
+    public List<String> getAllProductNamesOnly() {
+        return productListRepo.findAllProductNamesOnly();
     }
 
 

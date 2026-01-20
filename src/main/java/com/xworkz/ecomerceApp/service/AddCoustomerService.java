@@ -13,12 +13,6 @@ public interface AddCoustomerService {
     boolean saveCustomer(AddCustomerDto dto);
     void updateCustomer(AddCustomerDto dto);
     boolean deleteById(int id);
-    List<AddCustomerEntity> findAllDebitCustomers();
-    boolean existsByNameAndType(String customerName, String customerType);
     AddCustomerEntity getById(int customerId);
-    boolean existsByEmail(String email);
-    boolean existsByPhone(String phone);
-    boolean existsByGst(String gst);
-    boolean existsByName(String customerName);
-
+    List<String> getDebtorCustomerTypes();
 }
