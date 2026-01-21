@@ -36,10 +36,10 @@ public class PurchaseController{
                                    @RequestParam(required = false) String customerName,
                                    Model model) {
 
-//       List<String> productGroups = productService.getAllProductNamesOnly();
-        List<String> customers = service.getDebtorCustomerTypes();
+       List<String> productGroups = productService.getAllProductNamesOnly();
+        List<AddCustomerDto> customers = service.fetchAllCustomers();
 
-//        model.addAttribute("productGroups", productGroups);
+        model.addAttribute("productGroups", productGroups);
         model.addAttribute("voucherType", voucherType);
         model.addAttribute("customers", customers);
         model.addAttribute("customerName", customerName);
