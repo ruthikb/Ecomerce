@@ -48,16 +48,13 @@ public class PurchaseController{
     }
 
     @PostMapping("/savePurchase")
-    public String savePurchase(@ModelAttribute PurchaseDto dto) {
-//        dto.setStatus(ApprovalStatus.PENDING);
+    public String savePurchase(@ModelAttribute PurchaseDto dto,Model model) {
         boolean saved = purchaseService.savePurchase(dto);
         if (saved) {
-            System.out.println("Purchase Order Saved Successfully as PENDING!");
+            model.addAttribute("message", "Purchase Order Saved Successfully as PENDING!");
         } else {
-            System.out.println("Failed to save purchase order.");
+           model.addAttribute("message", "Failed to save purchase.");
         }
-
-
         return "PurchasePage";
     }
 

@@ -20,6 +20,5 @@ public class PurchaseDto {
     private double openingValue;
     private int openingBalance;
     private double purchasePrice;
-
     private LocalDate orderDueDate;
 }

@@ -306,5 +306,11 @@
             });
         });
     </script>
+    <script>
+    document.getElementById("confirmPopup").addEventListener("show.bs.modal", function() {
+      document.getElementById("priceDisplay").innerText = document.querySelector("[name='purchasePrice']").value;
+      document.getElementById("qtyDisplay").innerText = document.querySelector("[name='openingBalance']").value;
+    });
+    </script>
 </body>
 </html>

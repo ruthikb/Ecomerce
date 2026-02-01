@@ -26,26 +26,13 @@ public class PurchaseServiceImpl implements PurchaseService{
 
     @Override
     public boolean savePurchase(PurchaseDto dto) {
-        if (dto == null) return false;
-
-
-        AddCustomerEntity customer = null;
-        ProductNameEntity productGroup = null;
-        if (dto.getCustomerId() != null) {
-            customer = customerService.getById(dto.getCustomerId().intValue());
-        }
-//        if (dto.getProductGroupId() != null) {
-//            productGroup = productGroupService.fetchProducts(dto.getProductGroupId());
-//        }
-
-        if (customer == null || productGroup == null){
-
+        if (dto == null)
             return false;
-        }
-
         PurchaseEntity entity = new PurchaseEntity();
 
         entity.setVoucherType(dto.getVoucherType());
+        entity.setCustomer(customerService.getById(Math.toIntExact(dto.getCustomerId())));
+//        entity.setProductGroup(productGroupService.getById(Math.toIntExact(dto.getProductGroupId())));
         entity.setMake(dto.getMake());
         entity.setModel(dto.getModel());
         entity.setProductCode(dto.getProductCode());
@@ -54,9 +41,7 @@ public class PurchaseServiceImpl implements PurchaseService{
         entity.setOpeningBalance(dto.getOpeningBalance());
         entity.setPurchasePrice(dto.getPurchasePrice());
         entity.setOrderDueDate(dto.getOrderDueDate());
-
-        entity.setCustomer(customer);
-        entity.setProductGroup(productGroup);
+//        entity.setProductGroup(productGroup);
         entity.setStatus("PENDING");
 
         return purchaseRepo.savePurchase(entity);
