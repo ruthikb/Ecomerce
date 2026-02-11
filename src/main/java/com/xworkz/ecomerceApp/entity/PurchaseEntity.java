@@ -10,6 +10,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@NamedQueries(
+        @NamedQuery(name = "findAllPurchases", query = "SELECT p FROM PurchaseEntity p")
+)
 public class PurchaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

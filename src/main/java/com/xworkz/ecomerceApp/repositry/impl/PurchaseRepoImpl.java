@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import java.util.Collections;
+import java.util.List;
+
 @Repository
 public class PurchaseRepoImpl implements PurchaseRepo {
 
@@ -25,4 +29,20 @@ public class PurchaseRepoImpl implements PurchaseRepo {
         }
         return false;
     }
+
+    @Override
+    public List<PurchaseEntity> findAllPurchases() {
+        try {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNamedQuery("findAllPurchases");
+            List<PurchaseEntity> result = query.getResultList();
+            entityManager.getTransaction().commit();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+
+        }
 }

@@ -1,4 +1,3 @@
-
 package com.xworkz.ecomerceApp.service.impl;
 
 import com.xworkz.ecomerceApp.dto.PurchaseDto;
@@ -11,6 +10,9 @@ import com.xworkz.ecomerceApp.service.ProductService;
 import com.xworkz.ecomerceApp.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class PurchaseServiceImpl implements PurchaseService{
@@ -32,7 +34,17 @@ public class PurchaseServiceImpl implements PurchaseService{
 
         entity.setVoucherType(dto.getVoucherType());
         entity.setCustomer(customerService.getById(Math.toIntExact(dto.getCustomerId())));
-//        entity.setProductGroup(productGroupService.getById(Math.toIntExact(dto.getProductGroupId())));
+
+        // Resolve the selected productGroupId to an actual ProductNameEntity and set it
+        if (dto.getProductGroupId() != null) {
+            int prodId = Math.toIntExact(dto.getProductGroupId());
+            List<ProductNameEntity> productList = productGroupService.getById(prodId);
+            if (productList != null && !productList.isEmpty()) {
+                ProductNameEntity product = productList.get(0);
+                entity.setProductGroup(product);
+            }
+        }
+
         entity.setMake(dto.getMake());
         entity.setModel(dto.getModel());
         entity.setProductCode(dto.getProductCode());
@@ -45,5 +57,10 @@ public class PurchaseServiceImpl implements PurchaseService{
         entity.setStatus("PENDING");
 
         return purchaseRepo.savePurchase(entity);
+    }
+
+    @Override
+    public List<PurchaseEntity> getAllPurchases() {
+        return purchaseRepo.findAllPurchases();
     }
 }

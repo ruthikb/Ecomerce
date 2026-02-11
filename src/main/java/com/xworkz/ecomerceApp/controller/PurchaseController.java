@@ -4,12 +4,12 @@ package com.xworkz.ecomerceApp.controller;
 import com.xworkz.ecomerceApp.dto.AddCustomerDto;
 import com.xworkz.ecomerceApp.dto.ProductNameDto;
 import com.xworkz.ecomerceApp.dto.PurchaseDto;
+import com.xworkz.ecomerceApp.service.AddCoustomerService;
+import com.xworkz.ecomerceApp.service.ProductService;
 import com.xworkz.ecomerceApp.dto.enums.CustomerType;
 import com.xworkz.ecomerceApp.entity.AddCustomerEntity;
 import com.xworkz.ecomerceApp.entity.ProductNameEntity;
 import com.xworkz.ecomerceApp.entity.PurchaseEntity;
-import com.xworkz.ecomerceApp.service.AddCoustomerService;
-import com.xworkz.ecomerceApp.service.ProductService;
 import com.xworkz.ecomerceApp.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,14 +36,16 @@ public class PurchaseController{
                                    @RequestParam(required = false) String customerName,
                                    Model model) {
 
-       List<String> productGroups = productService.getAllProductNamesOnly();
+       // Fetch full product entities (id + name) so we can render option value as id and display name
+       List<ProductNameEntity> productGroups = productService.getAllProductNames();
+        System.err.println(productGroups);
         List<AddCustomerDto> customers = service.fetchAllCustomers();
+        System.err.println(customers);
 
         model.addAttribute("productGroups", productGroups);
         model.addAttribute("voucherType", voucherType);
         model.addAttribute("customers", customers);
         model.addAttribute("customerName", customerName);
-        model.addAttribute("productDto", new ProductNameDto());
         return "purchasePage";
     }
 
@@ -55,8 +57,14 @@ public class PurchaseController{
         } else {
            model.addAttribute("message", "Failed to save purchase.");
         }
-        return "PurchasePage";
+        return "User";
     }
+    @GetMapping("/viewPurchase")
+    public String viewPurchases(Model model) {
+        model.addAttribute("purchases", purchaseService.getAllPurchases());
+        return "viewPurchase";
+    }
+
 
 //    @GetMapping("/addPurchase")
 //    public String ShowPurchasePage(@RequestParam(defaultValue = "Purchase") String CustomerType,

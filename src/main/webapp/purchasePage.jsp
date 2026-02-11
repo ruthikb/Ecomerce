@@ -164,21 +164,62 @@
             </div>
         </div>
     </nav>
-    <div class="sidebar border-end">
-              <h5 class="text-center border-bottom pb-2 mb-3">Menu</h5>
-              <ul class="list-unstyled">
-                  <li class="mb-2">
-                      <a href="" class="d-block py-2 px-3 text-white rounded hover-item">
-                          <i class="bi bi-cart me-2"></i> sales
-                      </a>
-                  </li>
-                  <li class="mb-2">
-                      <a href="purchase" class="d-block py-2 px-3 text-white rounded hover-item">
-                           <i class="bi bi-box me-2"></i> purchase
-                      </a>
-                  </li>
-              </ul>
-          </div>
+    <div class="sidebar border-end bg-dark p-3" style="width: 250px;">
+        <h5 class="text-center border-bottom pb-2 mb-3 text-white">Menu</h5>
+
+        <ul class="list-unstyled">
+
+            <!-- SALES -->
+            <li class="mb-2">
+                <a class="d-flex justify-content-between align-items-center py-2 px-3 text-white rounded hover-item"
+                   data-bs-toggle="collapse" href="#salesMenu" role="button">
+                    <span><i class="bi bi-cart me-2"></i> Sales</span>
+                    <i class="bi bi-chevron-down"></i>
+                </a>
+
+                <div class="collapse ps-3 mt-2" id="salesMenu">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="addSales" class="d-block py-2 px-3 text-white rounded hover-item">
+                                Add Sales
+                            </a>
+                        </li>
+                        <li>
+                            <a href="viewSales" class="d-block py-2 px-3 text-white rounded hover-item">
+                                View Sales
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- PURCHASE -->
+            <li class="mb-2">
+                <a class="d-flex justify-content-between align-items-center py-2 px-3 text-white rounded hover-item"
+                   data-bs-toggle="collapse" href="#purchaseMenu" role="button">
+                    <span><i class="bi bi-box me-2"></i> Purchase</span>
+                    <i class="bi bi-chevron-down"></i>
+                </a>
+
+                <div class="collapse ps-3 mt-2" id="purchaseMenu">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="addPurchase" class="d-block py-2 px-3 text-white rounded hover-item">
+                                Add Purchase
+                            </a>
+                        </li>
+                        <li>
+                            <a href="viewPurchase" class="d-block py-2 px-3 text-white rounded hover-item">
+                                View Purchase
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
     <main>
     <div class="container mt-5">
         <h2 class="mb-4">Purchase Order Form</h2>
@@ -198,6 +239,7 @@
       <c:if test="${empty customers}">
         <option disabled>No customers available</option>
       </c:if>
+
       <c:forEach var="c" items="${customers}">
         <!-- use properties that exist on your Customer object -->
         <option value="${c.id}">${c.customerName}</option>
@@ -209,8 +251,13 @@
     <label>Product Group Name</label>
     <select name="productGroupId" class="form-select" required>
 
+      <c:if test="${empty productGroups}">
+        <option disabled>No products available</option>
+      </c:if>
+
       <c:forEach var="group" items="${productGroups}">
-        <option> ${group} </option>
+        <!-- ensure option value is the numeric id and display productName -->
+        <option value="${group.id}">${group.productName}</option>
       </c:forEach>
     </select>
   </div>
