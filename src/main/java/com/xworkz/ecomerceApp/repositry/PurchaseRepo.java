@@ -8,4 +8,10 @@ public interface PurchaseRepo    {
     boolean savePurchase(PurchaseEntity entity);
 
     List<PurchaseEntity> findAllPurchases();
+
+    List<PurchaseEntity> findPendingPurchases();
+
+    boolean Approved(long id);
+
+    boolean rejected(long id);
 }

@@ -137,6 +137,7 @@
                   aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
               </button>
+
                 <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                   <ul class="navbar-nav mb-2 mb-lg-0">
                       <li class="nav-item dropdown">
@@ -170,6 +171,11 @@
                  <a href="viewUser" class="d-block py-2 px-3 text-white rounded hover-item">
                      <i class="bi bi-people me-2"></i> View User
                  </a>
+              </li>
+              <li class="mb-2">
+                  <a href="notification" class="d-block py-2 px-3 text-white rounded hover-item">
+                      <i class="bi bi-box-seam me-2"></i> Notification
+                  </a>
               </li>
           </ul>
       </div>

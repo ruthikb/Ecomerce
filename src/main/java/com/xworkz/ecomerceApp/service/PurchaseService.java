@@ -9,4 +9,10 @@ public interface PurchaseService {
     boolean savePurchase(PurchaseDto dto);
 
     List<PurchaseEntity> getAllPurchases();
+
+    List<PurchaseEntity> getPendingPurchases();
+
+    boolean markAsApproved(long id);
+
+    boolean markAsRejected(long id);
 }

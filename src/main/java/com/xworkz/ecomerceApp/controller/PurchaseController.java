@@ -1,6 +1,5 @@
 package com.xworkz.ecomerceApp.controller;
 
-
 import com.xworkz.ecomerceApp.dto.AddCustomerDto;
 import com.xworkz.ecomerceApp.dto.ProductNameDto;
 import com.xworkz.ecomerceApp.dto.PurchaseDto;
@@ -64,6 +63,26 @@ public class PurchaseController{
         model.addAttribute("purchases", purchaseService.getAllPurchases());
         return "viewPurchase";
     }
+    @GetMapping("/notification")
+    public  String showNotification(Model model) {
+        model.addAttribute("pendingOrders", purchaseService.getPendingPurchases());
+        return "notification";
+    }
+    @PostMapping("/approved")
+    public String approvePurchase(@RequestParam("id") long id) {
+        purchaseService.markAsApproved(id);
+        return "Admin";
+    }
+    @PostMapping("/rejected")
+    public String rejectPurchase(@RequestParam("id") long id) {
+        purchaseService.markAsRejected(id);
+        return "Admin";
+    }
+//    @GetMapping("/notifications")
+//    public String showNotifications(Model model) {
+//        model.addAttribute("pendingOrders", purchaseService.getPendingPurchases());
+//        return "Admin";
+//    }
 
 
 //    @GetMapping("/addPurchase")

@@ -42,7 +42,58 @@ public class PurchaseRepoImpl implements PurchaseRepo {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return Collections.emptyList();
 
         }
+
+    @Override
+    public List<PurchaseEntity> findPendingPurchases() {
+        try {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            Query query = entityManager.createNamedQuery("findPendingPurchases");
+            List<PurchaseEntity> result = query.getResultList();
+            entityManager.getTransaction().commit();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return Collections.emptyList();
+    }
+
+    @Override
+    public boolean Approved(long id) {
+        try{
+            EntityManager entityManager= entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            Query  query=entityManager.createNamedQuery("ApprovedPurchase");
+            query.setParameter("id",id);
+            int updatedCount=query.executeUpdate();
+            entityManager.getTransaction().commit();
+            return updatedCount > 0;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean rejected(long id) {
+        try{
+            EntityManager entityManager= entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            Query  query=entityManager.createNamedQuery("rejectedPurchase");
+            query.setParameter("id",id);
+            int updatedCount=query.executeUpdate();
+            entityManager.getTransaction().commit();
+            return updatedCount > 0;
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+        return false;
+    }
 }

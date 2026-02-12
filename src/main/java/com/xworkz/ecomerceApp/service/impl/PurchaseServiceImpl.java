@@ -63,4 +63,19 @@ public class PurchaseServiceImpl implements PurchaseService{
     public List<PurchaseEntity> getAllPurchases() {
         return purchaseRepo.findAllPurchases();
     }
+
+    @Override
+    public List<PurchaseEntity> getPendingPurchases() {
+        return  purchaseRepo.findPendingPurchases();
+    }
+
+    @Override
+    public boolean markAsApproved(long id) {
+        return purchaseRepo.Approved(id);
+    }
+
+    @Override
+    public boolean markAsRejected(long id) {
+        return purchaseRepo.rejected(id);
+    }
 }
