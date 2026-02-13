@@ -12,7 +12,13 @@ public interface PurchaseService {
 
     List<PurchaseEntity> getPendingPurchases();
 
-    boolean markAsApproved(long id);
+        PurchaseEntity markAsApproved(long id);
 
-    boolean markAsRejected(long id);
+    PurchaseEntity markAsRejected(long id);
+
+    PurchaseEntity findById(long id);
+
+//    List<PurchaseEntity> findByStatus(String status);
+
+
 }

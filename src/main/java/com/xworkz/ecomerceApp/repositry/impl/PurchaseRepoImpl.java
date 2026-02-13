@@ -96,4 +96,57 @@ public class PurchaseRepoImpl implements PurchaseRepo {
         }
         return false;
     }
+
+    @Override
+    public PurchaseEntity findById(long id) {
+        try{
+            EntityManager  entityManager= entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            Query query=entityManager.createNamedQuery("findById");
+            query.setParameter("id",id);
+            PurchaseEntity result=(PurchaseEntity) query.getSingleResult();
+            entityManager.getTransaction().commit();
+            return result;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean update(PurchaseEntity purchaseEntity) {
+        try{
+            EntityManager entityManager= entityManagerFactory.createEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.merge(purchaseEntity);
+            entityManager.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public PurchaseEntity find(long id) {
+        EntityManager manager= entityManagerFactory.createEntityManager();
+        return  manager.find(PurchaseEntity.class,id);
+    }
+
+//    @Override
+//    public List<PurchaseEntity> findAllPurchasesByStatus(String status) {
+//        try {
+//            EntityManager entityManager = entityManagerFactory.createEntityManager();
+//            entityManager.getTransaction().begin();
+//            Query query = entityManager.createNamedQuery("findAllPurchasesByStatus");
+//            query.setParameter("status", status);
+//            List<PurchaseEntity> result = query.getResultList();
+//            entityManager.getTransaction().commit();
+//            return result;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return Collections.emptyList();
+//    }
 }

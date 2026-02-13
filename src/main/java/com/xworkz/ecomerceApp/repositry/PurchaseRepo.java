@@ -14,4 +14,12 @@ public interface PurchaseRepo    {
     boolean Approved(long id);
 
     boolean rejected(long id);
+
+    PurchaseEntity findById(long id);
+
+    boolean update(PurchaseEntity purchaseEntity);
+
+    PurchaseEntity find(long id);
+
+//    List<PurchaseEntity> findAllPurchasesByStatus(String status);
 }

@@ -70,12 +70,42 @@ public class PurchaseServiceImpl implements PurchaseService{
     }
 
     @Override
-    public boolean markAsApproved(long id) {
-        return purchaseRepo.Approved(id);
+    public PurchaseEntity markAsApproved(long id) {
+        PurchaseEntity purchaseEntity=purchaseRepo.findById(id);
+        if(purchaseEntity!=null) {
+            System.err.println(purchaseEntity);
+            purchaseEntity.setStatus("APPROVED");
+            purchaseRepo.update(purchaseEntity);
+            System.err.println(purchaseEntity);
+            return purchaseEntity;
+        }
+       return null;
     }
 
     @Override
-    public boolean markAsRejected(long id) {
-        return purchaseRepo.rejected(id);
+    public PurchaseEntity  markAsRejected(long id) {
+        PurchaseEntity purchaseEntity=purchaseRepo.findById(id);
+        if(purchaseEntity!=null) {
+            System.err.println(purchaseEntity);
+            purchaseEntity.setStatus("REJECTED");
+            purchaseRepo.update(purchaseEntity);
+            System.err.println(purchaseEntity);
+            return purchaseEntity;
+        }
+        return null;
     }
+
+
+        @Override
+        public PurchaseEntity findById(long id) {
+            return purchaseRepo.find(id);
+        }
+
+
+//    @Override
+//    public List<PurchaseEntity> findByStatus(String status) {
+//        return purchaseRepo.findAllPurchasesByStatus(status);
+//    }
+
+
 }

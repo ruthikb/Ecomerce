@@ -20,6 +20,7 @@
                 <th>Product</th>
                 <th>Model</th>
                 <th>Price</th>
+                <th>status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -32,15 +33,27 @@
                 <td>${order.model}</td>
                 <td>${order.purchasePrice}</td>
                 <td>
-                    <form action="approved" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="${order.id}" />
-                        <button type="submit" class="btn btn-success btn-sm">Approve</button>
-                    </form>
-
-                    <form action="rejected" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="${order.id}" />
-                        <button type="submit" class="btn btn-danger btn-sm">Reject</button>
-                    </form>
+                <c:choose>
+                    <c:when test="${order.status == 'APPROVED'}">
+                        <span class="badge bg-success">Approved</span>
+                    </c:when>
+                    <c:when test="${order.status == 'REJECTED'}">
+                        <span class="badge bg-danger">Rejected</span>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="badge bg-warning text-dark">Pending</span>
+                    </c:otherwise>
+                </c:choose>
+                </td>
+                <td>
+                <form action="approved" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="${order.id}" />
+                    <button type="submit" class="btn btn-info btn-sm">Approved</button>
+                </form>
+                <form action="rejected" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="${order.id}" />
+                    <button type="submit" class="btn btn-danger btn-sm">Rejected</button>
+                </form>
                 </td>
             </tr>
         </c:forEach>

@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>All Purchase Orders</title>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
 :root{
@@ -15,13 +17,11 @@
     --footer-height:40px;
 }
 
-/* Body */
 body{
     margin:0;
     background:#f8f9fa;
 }
 
-/* Navbar */
 .navbar{
     height:var(--navbar-height);
     position:fixed;
@@ -31,7 +31,6 @@ body{
     z-index:1000;
 }
 
-/* Sidebar */
 .sidebar{
     position:fixed;
     top:var(--navbar-height);
@@ -43,7 +42,6 @@ body{
     overflow-y:auto;
 }
 
-/* Main Content */
 .main-content{
     margin-top:var(--navbar-height);
     margin-left:var(--sidebar-width);
@@ -55,7 +53,6 @@ body{
     align-items:flex-start;
 }
 
-/* Center Card */
 .content-card{
     width:100%;
     max-width:1200px;
@@ -65,7 +62,6 @@ body{
     box-shadow:0 4px 20px rgba(0,0,0,0.08);
 }
 
-/* Status colors */
 .status-pending{color:#ffc107;font-weight:600;}
 .status-approved{color:#198754;font-weight:600;}
 .status-rejected{color:#dc3545;font-weight:600;}
@@ -75,7 +71,6 @@ body{
     vertical-align:middle;
 }
 
-/* Footer */
 footer{
     position:fixed;
     bottom:0;
@@ -105,66 +100,43 @@ footer .date-time{
     </div>
 </nav>
 
-<<div class="sidebar border-end bg-dark p-3" style="width: 250px;">
+<!-- SIDEBAR -->
+<div class="sidebar border-end bg-dark p-3" style="width: 250px;">
      <h5 class="text-center border-bottom pb-2 mb-3 text-white">Menu</h5>
 
      <ul class="list-unstyled">
 
-         <!-- SALES -->
          <li class="mb-2">
-             <a class="d-flex justify-content-between align-items-center py-2 px-3 text-white rounded hover-item"
+             <a class="d-flex justify-content-between align-items-center py-2 px-3 text-white rounded"
                 data-bs-toggle="collapse" href="#salesMenu" role="button">
-                 <span><i class="bi bi-cart me-2"></i> Sales</span>
-                 <i class="bi bi-chevron-down"></i>
+                 <span>Sales</span>
              </a>
-
              <div class="collapse ps-3 mt-2" id="salesMenu">
                  <ul class="list-unstyled">
-                     <li>
-                         <a href="addSales" class="d-block py-2 px-3 text-white rounded hover-item">
-                             Add Sales
-                         </a>
-                     </li>
-                     <li>
-                         <a href="viewSales" class="d-block py-2 px-3 text-white rounded hover-item">
-                             View Sales
-                         </a>
-                     </li>
+                     <li><a href="addSales" class="d-block py-2 px-3 text-white">Add Sales</a></li>
+                     <li><a href="viewSales" class="d-block py-2 px-3 text-white">View Sales</a></li>
                  </ul>
              </div>
          </li>
 
-         <!-- PURCHASE -->
          <li class="mb-2">
-             <a class="d-flex justify-content-between align-items-center py-2 px-3 text-white rounded hover-item"
+             <a class="d-flex justify-content-between align-items-center py-2 px-3 text-white rounded"
                 data-bs-toggle="collapse" href="#purchaseMenu" role="button">
-                 <span><i class="bi bi-box me-2"></i> Purchase</span>
-                 <i class="bi bi-chevron-down"></i>
+                 <span>Purchase</span>
              </a>
-
              <div class="collapse ps-3 mt-2" id="purchaseMenu">
                  <ul class="list-unstyled">
-                     <li>
-                         <a href="addPurchase" class="d-block py-2 px-3 text-white rounded hover-item">
-                             Add Purchase
-                         </a>
-                     </li>
-                     <li>
-                         <a href="viewPurchase" class="d-block py-2 px-3 text-white rounded hover-item">
-                             View Purchase
-                         </a>
-                     </li>
+                     <li><a href="addPurchase" class="d-block py-2 px-3 text-white">Add Purchase</a></li>
+                     <li><a href="viewPurchase" class="d-block py-2 px-3 text-white">View Purchase</a></li>
                  </ul>
              </div>
          </li>
 
      </ul>
- </div>
-
+</div>
 
 <!-- MAIN CONTENT -->
 <div class="main-content">
-
     <div class="content-card">
 
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -187,6 +159,7 @@ footer .date-time{
                     <th>Quantity</th>
                     <th>Due Date</th>
                     <th>Status</th>
+                    <th>Download</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -219,12 +192,22 @@ footer .date-time{
                                 </c:otherwise>
                             </c:choose>
                         </td>
+
+                        <!-- DOWNLOAD COLUMN -->
+                        <td>
+                            <c:if test="${p.status == 'APPROVED'}">
+                                <a href="downloadPurchase?id=${p.id}"
+                                   class="btn btn-sm btn-primary">
+                                    <i class="bi bi-download"></i>
+                                </a>
+                            </c:if>
+                        </td>
                     </tr>
                 </c:forEach>
 
                 <c:if test="${empty purchases}">
                     <tr>
-                        <td colspan="11" class="text-center text-muted">
+                        <td colspan="12" class="text-center text-muted">
                             No purchase records found.
                         </td>
                     </tr>
