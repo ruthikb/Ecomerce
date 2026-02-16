@@ -118,6 +118,24 @@ public class AddCustomerRepoImpl implements AddCustomerRepo {
         }
     }
 
+    @Override
+    public List<AddCustomerEntity> findAllDebitors() {
+        try{
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createNamedQuery("getDebitCustomers");
+        query.setParameter("type", CustomerType.debtor);
+        List<AddCustomerEntity> result = query.getResultList();
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return result;
+        }catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+
+        return Collections.emptyList();
+    }
+
 //    @Override
 //    public List<AddCustomerEntity> getDebitCustomers() {
 //        try {

@@ -4,6 +4,7 @@ import com.xworkz.ecomerceApp.dto.enums.CustomerType;
 import com.xworkz.ecomerceApp.entity.AddCustomerEntity;
 import com.xworkz.ecomerceApp.entity.UserEntity;
 
+import java.util.Arrays;
 import java.util.List;
 
 public interface AddCustomerRepo {
@@ -19,4 +20,5 @@ public interface AddCustomerRepo {
 
     List<String> findDebtorCustomerTypes();
 
+    List<AddCustomerEntity> findAllDebitors();
 }

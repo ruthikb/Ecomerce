@@ -1,7 +1,6 @@
 package com.xworkz.ecomerceApp.service.impl;
 
 import com.xworkz.ecomerceApp.dto.PurchaseDto;
-import com.xworkz.ecomerceApp.entity.AddCustomerEntity;
 import com.xworkz.ecomerceApp.entity.ProductNameEntity;
 import com.xworkz.ecomerceApp.entity.PurchaseEntity;
 import com.xworkz.ecomerceApp.repositry.PurchaseRepo;
@@ -11,7 +10,6 @@ import com.xworkz.ecomerceApp.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -100,6 +98,11 @@ public class PurchaseServiceImpl implements PurchaseService{
         public PurchaseEntity findById(long id) {
             return purchaseRepo.find(id);
         }
+
+//    @Override
+//    public List<PurchaseEntity> fetchAllProductList() {
+//        return purchaseRepo.findAllPurchases();
+//    }
 
 
 //    @Override

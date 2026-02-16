@@ -18,6 +18,8 @@ public interface PurchaseService {
 
     PurchaseEntity findById(long id);
 
+//    List<PurchaseEntity> fetchAllProductList();
+
 //    List<PurchaseEntity> findByStatus(String status);
 
 

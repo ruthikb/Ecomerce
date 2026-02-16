@@ -35,21 +35,21 @@ public class PurchaseController{
 
     @Autowired
     ProductService productService;
-    @GetMapping("/addPurchase")
+        @GetMapping("/addPurchase")
     public String showPurchasePage(@RequestParam(defaultValue = "Purchase") String voucherType,
                                    @RequestParam(required = false) String customerName,
                                    Model model) {
+            // Fetch full product entities (id + name) so we can render option value as id and display name
 
-       // Fetch full product entities (id + name) so we can render option value as id and display name
        List<ProductNameEntity> productGroups = productService.getAllProductNames();
         System.err.println(productGroups);
         List<AddCustomerDto> customers = service.fetchAllCustomers();
         System.err.println(customers);
 
-        model.addAttribute("productGroups", productGroups);
-        model.addAttribute("voucherType", voucherType);
-        model.addAttribute("customers", customers);
-        model.addAttribute("customerName", customerName);
+            model.addAttribute("productGroups", productGroups);
+            model.addAttribute("voucherType", voucherType);
+            model.addAttribute("customers", customers);
+            model.addAttribute("customerName", customerName);
         return "purchasePage";
     }
 

@@ -98,13 +98,13 @@ public class AddCustomerController {
         model.addAttribute("listOfCustomer", dtoList);
         return "viewCustomer";
     }
-    @GetMapping("getDebtorCustomerTypes")
-    public ResponseEntity<?> getDebtorCustomerTypes() {
-        List<String> debtorTypes = service.getDebtorCustomerTypes();
-        if (debtorTypes.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No debtor customer types found");
-        }
-        return ResponseEntity.ok(debtorTypes);
-    }
+//    @GetMapping("getDebtorCustomerTypes")
+//    public ResponseEntity<?> getDebtorCustomerTypes() {
+//        List<AddCustomerDto> debtorTypes = service.getDebtorCustomerTypes();
+//        if (debtorTypes.isEmpty()) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No debtor customer types found");
+//        }
+//        return ResponseEntity.ok(debtorTypes);
+//    }
 
 }

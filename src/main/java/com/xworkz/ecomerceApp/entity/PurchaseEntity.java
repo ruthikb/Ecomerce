@@ -38,7 +38,7 @@ public class PurchaseEntity {
     private String productCode;
     private String itemName;
     private double openingValue;
-    private int openingBalance;
+        private int openingBalance;
     private double purchasePrice;
     private LocalDate orderDueDate;
     private String status;
