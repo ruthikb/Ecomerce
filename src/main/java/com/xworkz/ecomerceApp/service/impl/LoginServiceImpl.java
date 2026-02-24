@@ -126,7 +126,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public String verifyOtp(String email, String otp) {
+    public String   verifyOtp(String email, String otp) {
         System.err.println(email);
         System.err.println(otp);
         if (email == null || otp == null) {

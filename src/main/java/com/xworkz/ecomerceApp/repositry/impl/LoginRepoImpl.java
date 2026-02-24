@@ -20,7 +20,7 @@ public class LoginRepoImpl implements LoginRepositry {
 
 
     @Override
-    public UserEntity findByEmailOrPhone(String emailOrPhone) {
+        public UserEntity  findByEmailOrPhone(String emailOrPhone) {
         System.err.println("repo got invoked");
         System.out.println(emailOrPhone);
         EntityManager entityManager = entityManagerFactory.createEntityManager();
