@@ -95,30 +95,46 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="Admin.jsp">E-Commerce Portal</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
-                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container-fluid">
 
-            <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
-                <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-circle"></i> Admin Name
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+          <a class="navbar-brand" href="Admin.jsp">
+              E-Commerce Portal
+          </a>
 
-                            <li><a class="dropdown-item" href="logOut">Log-Out</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+          <button class="navbar-toggler" type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarContent">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+              <ul class="navbar-nav align-items-center">
+
+                  <li class="nav-item me-3">
+                      <a href="notification" class="nav-link">
+                          <i class="bi bi-bell fs-5"></i>
+                      </a>
+                  </li>
+
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#"
+                         role="button" data-bs-toggle="dropdown">
+                          <i class="bi bi-person-circle"></i>
+
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-end">
+                          <li>
+                              <a class="dropdown-item" href="logOut">Log-Out</a>
+                          </li>
+                      </ul>
+                  </li>
+
+              </ul>
+          </div>
+
+      </div>
+  </nav>
 
     <div class="sidebar bg-dark p-3 border-end">
         <h5 class="text-center border-bottom pb-2 mb-3">Menu</h5>

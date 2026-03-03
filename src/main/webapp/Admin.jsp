@@ -50,6 +50,32 @@
                 margin-top: 1rem;
             }
         }
+        footer {
+
+                    background-color: black;
+                    color: white;
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 60px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 0.9em    ;
+                    padding: 0 20px;
+                }
+
+                footer .date-time {
+                    position: absolute;
+                    right: 20px;
+                    font-weight: 600;
+                }
+
+                footer p {
+                    margin: 0;
+                    text-align: center;
+                }
     </style>
 </head>
 
@@ -59,30 +85,46 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
 
-        <a class="navbar-brand" href="Admin.jsp">E-Commerce Portal</a>
+        <!-- LEFT SIDE (Brand Only) -->
+        <a class="navbar-brand" href="Admin.jsp">
+            E-Commerce Portal
+        </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        <!-- TOGGLER -->
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
                 data-bs-target="#navbarContent">
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        <!-- RIGHT SIDE (Bell + Admin Dropdown) -->
         <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
             <ul class="navbar-nav align-items-center">
 
+                <!-- 🔔 Bell Icon -->
+                <li class="nav-item me-3">
+                    <a href="notification" class="nav-link">
+                        <i class="bi bi-bell fs-5"></i>
+                    </a>
+                </li>
 
                 <!-- 👤 Admin Dropdown -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="adminDropdown"
+                    <a class="nav-link dropdown-toggle" href="#"
                        role="button" data-bs-toggle="dropdown">
-                        <i class="bi bi-person-circle"></i> ${userDto.firstName()}
+                        <i class="bi bi-person-circle"></i>
+                        ${userDto.firstName()}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="logOut">Log-Out</a></li>
+                        <li>
+                            <a class="dropdown-item" href="logOut">Log-Out</a>
+                        </li>
                     </ul>
                 </li>
 
             </ul>
         </div>
+
     </div>
 </nav>
 
@@ -109,11 +151,7 @@
             </a>
         </li>
 
-        <li class="mb-2">
-            <a href="notification" class="text-white text-decoration-none">
-                <i class="bi bi-bell me-2"></i> Notification
-            </a>
-        </li>
+
 
     </ul>
 </div>
@@ -125,6 +163,19 @@
         This is your admin dashboard where you can manage users, products, and orders.
     </p>
 </main>
+ <footer>
+    <span id="dateTime" class="date-time"></span>
+    <p>&copy; 2025 ecomerce portal | e-portal</p>
+</footer>
+
+<script>
+
+    function updateDateTime() {
+        document.getElementById("dateTime").textContent = new Date().toLocaleString();
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+</script>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
