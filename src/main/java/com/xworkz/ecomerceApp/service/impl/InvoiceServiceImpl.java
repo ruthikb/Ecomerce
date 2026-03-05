@@ -116,7 +116,7 @@ public class InvoiceServiceImpl implements InvoiceService {
             content.newLineAtOffset(50, 730);
             content.showText("Xworkz ODC, Bengaluru, India");
             content.newLineAtOffset(0, -15);
-            content.showText("Email: support@techbridge.com | Phone: +91 9876543210");
+            content.showText("Email: kruthik693@gmail.com | Phone: +91 9113840336 ");
             content.newLineAtOffset(0, -15);
             content.endText();
 
@@ -191,7 +191,7 @@ public class InvoiceServiceImpl implements InvoiceService {
             content.newLineAtOffset(50, 80);
             content.showText("Thank you for your business!");
             content.newLineAtOffset(0, -15);
-            content.showText("For queries, contact support@techbridge.com");
+            content.showText("For queries, contact kruthik693@gmail.com");
             content.endText();
 
             content.close();

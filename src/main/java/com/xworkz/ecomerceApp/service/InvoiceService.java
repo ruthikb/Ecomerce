@@ -5,7 +5,7 @@ import com.xworkz.ecomerceApp.entity.PurchaseEntity;
 
 import java.io.File;
 
-public interface InvoiceService {
+public interface        InvoiceService {
 
         byte[] generateInvoiceForPurchase(PurchaseEntity purchaseEntity);
 
