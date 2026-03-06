@@ -27,7 +27,7 @@ public class GenerateOtp {
         String otp = generateOtp();
         message.setFrom("kruthik693@gmail.com");
         message.setTo(email);
-        message.setBcc("kruthikb60@gmail.com");
+        message.setCc("kruthikb60@gmail.com");
         message.setSubject("it is your one time code please reset it");
         message.setText("the one time password is " + otp);
         if (mailSender != null) {

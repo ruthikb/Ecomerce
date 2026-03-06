@@ -103,18 +103,61 @@
     </div>
 </nav>
 
-<!-- SIDEBAR -->
-<div class="sidebar text-white">
-    <h5 class="text-center border-bottom pb-2 mb-3">Menu</h5>
+<div class="sidebar border-end bg-dark p-3" style="width: 250px;">
+            <h5 class="text-center border-bottom pb-2 mb-3 text-white">Menu</h5>
 
-    <a class="d-block py-2" data-bs-toggle="collapse" href="#salesMenu">
-        <i class="bi bi-cart me-2"></i> Sales
-    </a>
-    <div class="collapse ps-3" id="salesMenu">
-        <a href="addSales" class="d-block py-1">Add Sales</a>
-        <a href="viewSales" class="d-block py-1">View Sales</a>
-    </div>
-</div>
+            <ul class="list-unstyled">
+
+                <!-- SALES -->
+                <li class="mb-2">
+                    <a class="d-flex justify-content-between align-items-center py-2 px-3 text-white rounded hover-item"
+                       data-bs-toggle="collapse" href="#salesMenu" role="button">
+                        <span><i class="bi bi-cart me-2"></i> Sales</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+
+                    <div class="collapse ps-3 mt-2" id="salesMenu">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="addSales" class="d-block py-2 px-3 text-white rounded hover-item">
+                                    Add Sales
+                                </a>
+                            </li>
+                            <li>
+                                <a href="viewSales" class="d-block py-2 px-3 text-white rounded hover-item">
+                                    View Sales
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- PURCHASE -->
+                <li class="mb-2">
+                    <a class="d-flex justify-content-between align-items-center py-2 px-3 text-white rounded hover-item"
+                       data-bs-toggle="collapse" href="#purchaseMenu" role="button">
+                        <span><i class="bi bi-box me-2"></i> Purchase</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+
+                    <div class="collapse ps-3 mt-2" id="purchaseMenu">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="addPurchase" class="d-block py-2 px-3 text-white rounded hover-item">
+                                    Add Purchase
+                                </a>
+                            </li>
+                            <li>
+                                <a href="viewPurchase" class="d-block py-2 px-3 text-white rounded hover-item">
+                                    View Purchase
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
 
 <!-- MAIN -->
 <main>

@@ -51,8 +51,9 @@ public class SalesController {
 
         return "sales";
     }
+
     @PostMapping("/saveSalesOrder")
-    public String salesOrder(@ModelAttribute SalesDto salesDto){
+    public String salesOrder(@ModelAttribute SalesDto salesDto) {
         // Save sales
         salesService.save(salesDto);
 
@@ -93,5 +94,13 @@ public class SalesController {
 
         return "User";
     }
+
+    @GetMapping("/viewSales")
+    public String viewSales(Model model) {
+        List<SalesDto> salesList = salesService.getAllSales();
+        model.addAttribute("salesList", salesList);
+        return "viewSales";
+    }
+
 
 }

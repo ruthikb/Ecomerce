@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import java.util.Collections;
+import java.util.List;
+
 @Repository
 public class SalesRepoImpl implements SalesRepo {
 
@@ -29,5 +33,24 @@ public class SalesRepoImpl implements SalesRepo {
                 manager.close();
             }
         }
+    }
+
+    @Override
+    public List<SalesEntity> findAll() {
+        EntityManager entityManager=entityManagerFactory.createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            Query query=entityManager.createNamedQuery("findAllSales");
+            entityManager.getTransaction().commit();
+            return (List<SalesEntity>) query.getResultList();
+        }catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+        finally {
+            if (entityManager != null && entityManager.isOpen()) {
+                entityManager.close();
+            }
+        }
+        return Collections.emptyList();
     }
 }

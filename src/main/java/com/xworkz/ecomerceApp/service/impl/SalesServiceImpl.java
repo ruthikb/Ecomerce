@@ -8,17 +8,35 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class SalesServiceImpl implements SalesService {
     @Autowired
     SalesRepo salesRepo;
+
     @Override
     public boolean save(SalesDto salesDto) {
-        if (salesDto!=null){
+        if (salesDto != null) {
             SalesEntity salesEntity = new SalesEntity();
-            BeanUtils.copyProperties(salesDto,salesEntity);
+            BeanUtils.copyProperties(salesDto, salesEntity);
             return salesRepo.Saved(salesEntity);
         }
         return false;
+    }
+
+    @Override
+    public List<SalesDto> getAllSales() {
+        List<SalesDto> salesDtos = new ArrayList<>();
+        List<SalesEntity> salesEntities = salesRepo.findAll();
+        for (SalesEntity salesEntity : salesEntities) {
+            SalesDto salesDto = new SalesDto();
+            BeanUtils.copyProperties(salesEntity, salesDto);
+            salesDtos.add(salesDto);
+        }
+        return salesDtos;
+
     }
 }

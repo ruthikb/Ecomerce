@@ -7,6 +7,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sales_list")
 @Data
+@NamedQueries({
+        @NamedQuery(name = "findAllSales", query = "SELECT s FROM SalesEntity s")
+})
 public class SalesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
