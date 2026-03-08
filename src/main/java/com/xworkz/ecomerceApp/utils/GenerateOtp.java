@@ -1,7 +1,6 @@
 package com.xworkz.ecomerceApp.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -16,39 +15,65 @@ public class GenerateOtp {
     @Autowired
     private JavaMailSender mailSender;
 
+    // Generate OTP
     public String generateOtp() {
         Random random = new Random();
-        return String.valueOf(random.nextInt(99999));
+        int otp = 10000 + random.nextInt(90000); // 5 digit OTP
+        return String.valueOf(otp);
     }
 
+    // Send OTP Email with CC
     public String sendSimpleMessage(String email) {
 
-        SimpleMailMessage message = new SimpleMailMessage();
         String otp = generateOtp();
-        message.setFrom("kruthik693@gmail.com");
-        message.setTo(email);
-        message.setCc("kruthikb60@gmail.com");
-        message.setSubject("it is your one time code please reset it");
-        message.setText("the one time password is " + otp);
-        if (mailSender != null) {
-            mailSender.send(message);
+
+        try {
+
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+
+            helper.setFrom("kruthik693@gmail.com");
+
+            helper.setTo(email);
+
+            // CC Email
+            helper.setCc("kruthikb60@gmail.com");
+
+            helper.setSubject("Your OTP Code");
+
+            helper.setText("Your One Time Password (OTP) is: " + otp);
+
+            mailSender.send(mimeMessage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         return otp;
     }
 
+    // Send Sales Confirmation Mail with Invoice
     public String sendSalesConfirmationMail(String email, String customerName, File invoicePdf) {
+
         if (mailSender == null) {
-            System.err.println("JavaMailSender is not configured (mailSender is null)");
+            System.err.println("JavaMailSender is not configured");
             return "Mail sender not available";
         }
 
         try {
+
             MimeMessage mimeMessage = mailSender.createMimeMessage();
 
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true); // true = multipart
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
             helper.setFrom("kruthik693@gmail.com");
+
             helper.setTo(email);
+
+            // CC Email
+            helper.setCc("kruthikb60@gmail.com");
+
             helper.setSubject("Sales Order Confirmation – TechBridge");
 
             String mailBody =
@@ -62,11 +87,11 @@ public class GenerateOtp {
 
             helper.setText(mailBody);
 
-            // Attach invoice only when provided and exists
+            // Attach Invoice
             if (invoicePdf != null && invoicePdf.exists()) {
                 helper.addAttachment(invoicePdf.getName(), invoicePdf);
             } else {
-                System.err.println("Invoice PDF is null or does not exist; skipping attachment.");
+                System.out.println("Invoice file not found, attachment skipped.");
             }
 
             mailSender.send(mimeMessage);
