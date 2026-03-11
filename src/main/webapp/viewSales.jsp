@@ -104,6 +104,7 @@ footer .date-time{
     <div class="container-fluid">
         <a class="navbar-brand" href="#">E-Commerce Portal</a>
     </div>
+
 </nav>
 
 <div class="sidebar border-end bg-dark p-3" style="width: 250px;">

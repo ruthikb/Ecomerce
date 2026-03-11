@@ -175,7 +175,9 @@
     <section class="hero">
         <h2>Welcome to e-Portal</h2>
         <p>Manage your laptop procurement efficiently</p>
-        <button class="btn" onclick="window.location.href='index'">Explore Now</button>
+       <a href="Index">
+           <button class="btn">Explore Now</button>
+       </a>
     </section>
 
     <section class="laptop-section">
@@ -191,7 +193,7 @@
         </div>
         <div class="card">
             <img src="https://th.bing.com/th/id/OPAC.drt56BAdIGBkjA474C474?w=220&h=220&c=17&o=5&cb=12&dpr=1.3&pid=21.1">
-            <h4>mac boox air</h4>
+            <h4>mac book air</h4>
             <p>Lightweight, fast, and stylish — perfect for display units</p>
         </div>
     </section>

@@ -163,6 +163,32 @@
                 <!-- optional top nav items -->
             </div>
         </div>
+         <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+                    <ul class="navbar-nav align-items-center">
+
+                        <!-- 🔔 Bell Icon -->
+                        <li class="nav-item me-3">
+                            <a href="notification" class="nav-link">
+                                <i class="bi bi-bell fs-5"></i>
+                            </a>
+                        </li>
+
+                        <!-- 👤 Admin Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#"
+                               role="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-person-circle"></i>
+                                ${userDto.firstName()}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="logOut">Log-Out</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
     </nav>
     <div class="sidebar border-end bg-dark p-3" style="width: 250px;">
         <h5 class="text-center border-bottom pb-2 mb-3 text-white">Menu</h5>

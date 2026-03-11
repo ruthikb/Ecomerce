@@ -1,9 +1,9 @@
 package com.xworkz.ecomerceApp.controller;
-
 import com.xworkz.ecomerceApp.dto.LoginDto;
 import com.xworkz.ecomerceApp.service.LoginService;
 import com.xworkz.ecomerceApp.utils.GenerateOtp;
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +19,16 @@ import javax.validation.Valid;
 public class UserController {
 
 
+
     @Autowired
     LoginService loginService;
     @Autowired
     GenerateOtp generateOtp;
+
+    @GetMapping("Index")
+    public  String index(){
+        return  "index";
+    }
 
     @GetMapping("loginUser")
     public String user() {
