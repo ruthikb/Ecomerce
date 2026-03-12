@@ -47,17 +47,22 @@ public class AddCustomerServiceImpl implements AddCoustomerService {
     }
 
     @Override
-    public void updateCustomer(AddCustomerDto dto) {
-        AddCustomerEntity entity = repo.getById( dto.getId());
-        if (entity != null) {
-            BeanUtils.copyProperties(dto, entity);
-            repo.save(entity);
-        }
+    public boolean updateCustomer(AddCustomerDto dto) {
+        AddCustomerEntity entity = new AddCustomerEntity();
+        BeanUtils.copyProperties(dto, entity);
+        return repo.update(entity);
+
     }
 
     @Override
     public boolean deleteById(int id) {
-        return repo.deleteById(id);
+        AddCustomerEntity entity = repo.getById(id);
+
+        if (entity != null) {
+            return repo.deleteById(entity);
+        }
+
+        return false;
     }
 
 
@@ -72,4 +77,26 @@ public class AddCustomerServiceImpl implements AddCoustomerService {
         return repo.findAllDebitors();
     }
 
+    @Override
+    public boolean updateCustomerById(int id, AddCustomerDto addCustomerDto) {
+
+        AddCustomerEntity entity = repo.getById(id);
+
+        if (entity != null) {
+
+            BeanUtils.copyProperties(addCustomerDto, entity);
+
+            // Ensure correct ID
+            entity.setId(id);
+
+            return repo.update(entity);
+        }
+
+        return false;
+    }
+
+
+
 }
+
+

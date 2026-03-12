@@ -14,11 +14,15 @@ public interface AddCustomerRepo {
 
     AddCustomerEntity getById(int id);
 
-    boolean deleteById(int id);
+    boolean deleteById(AddCustomerEntity entity);
 
     List<AddCustomerEntity> findByType(String type);
 
     List<String> findDebtorCustomerTypes();
 
     List<AddCustomerEntity> findAllDebitors();
+
+    boolean update(AddCustomerEntity entity);
+
+//    boolean update(AddCustomerEntity entity);
 }

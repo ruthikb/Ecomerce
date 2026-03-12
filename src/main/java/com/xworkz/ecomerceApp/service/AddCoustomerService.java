@@ -9,12 +9,14 @@ public interface AddCoustomerService {
     List<AddCustomerDto> fetchAllCustomers();
     AddCustomerDto fetchById(int id);
     boolean saveCustomer(AddCustomerDto dto);
-    void updateCustomer(AddCustomerDto dto);
+    boolean updateCustomer(AddCustomerDto dto);
     boolean deleteById(int id);
     AddCustomerEntity getById(int customerId);
 //    List<AddCustomerDto> getDebtorCustomerTypes();
 
     List<AddCustomerEntity> fetchDebitors();
+
+    boolean updateCustomerById(int id, AddCustomerDto addCustomerDto);
 
 //    List<AddCustomerDto> fetchDebitors();
 }

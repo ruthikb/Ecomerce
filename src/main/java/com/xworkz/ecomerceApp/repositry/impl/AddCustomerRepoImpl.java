@@ -72,20 +72,24 @@ public class AddCustomerRepoImpl implements AddCustomerRepo {
     }
 
     @Override
-    public boolean deleteById(int id) {
+    public boolean deleteById(AddCustomerEntity entity) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
         try {
-            EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
-            AddCustomerEntity entity = entityManager.find(AddCustomerEntity.class, id);
-            if (entity != null) {
-                entityManager.remove(entity);
-                entityManager.getTransaction().commit();
-                entityManager.close();
-                return true;
-            }
+            Query query=entityManager.createNamedQuery("deleteById");
+            query.setParameter("id",entity.getId());
+            int rowsDeleted = query.executeUpdate();
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+
+            e.printStackTrace();
+
+        } finally {
+
+            entityManager.close();
         }
+
         return false;
     }
 
@@ -134,6 +138,29 @@ public class AddCustomerRepoImpl implements AddCustomerRepo {
         }
 
         return Collections.emptyList();
+    }
+
+    @Override
+    public boolean update(AddCustomerEntity entity) {
+
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        try {
+            entityManager.getTransaction().begin();
+
+            entityManager.merge(entity);
+
+            entityManager.getTransaction().commit();
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            entityManager.close();   // ✅ Correct
+        }
+
+        return false;
     }
 
 //    @Override

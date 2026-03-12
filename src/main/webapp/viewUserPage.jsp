@@ -171,7 +171,7 @@
                     <th scope="col">Last Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Role</th>
-                    <th scope="col">Actions</th>
+
                 </tr>
             </thead>
              <c:forEach items="${getAllUser}" var="dtoList">
@@ -183,9 +183,6 @@
                         <td>${dtoList.getLastName()}</td>
                         <td>${dtoList.getEmail()}</td>
                         <td>${dtoList.getRole() }</td>
-                        <td>
-                            <a href="editUser?id=${dtoList.getId()}" <i class="bi bi-pencil-square"></i></a>&nbsp;&nbsp;
-                            <a href="deleteUser?id=${dtoList.getId()}"<i class="bi bi-trash"></i></a></td>
 
 
             </tbody>

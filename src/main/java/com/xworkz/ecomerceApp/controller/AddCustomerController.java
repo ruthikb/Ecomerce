@@ -54,6 +54,7 @@ public class AddCustomerController {
 
         return "viewCustomer";
     }
+
     // ✅ Show Edit Form
     @GetMapping("getCustomer")
     public String editCustomer(@RequestParam("id") int id, Model model) {
@@ -61,8 +62,9 @@ public class AddCustomerController {
         model.addAttribute("customer", customer);
         return "updateCustomer"; // ✅ editCustomer.jsp
     }
+
     @PostMapping("addCustomer")
-    public  String addCustomer(@Valid AddCustomerDto addCustomerDto, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+    public String addCustomer(@Valid AddCustomerDto addCustomerDto, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "addCustomerPage";
@@ -77,25 +79,31 @@ public class AddCustomerController {
         }
     }
 
+
     @PostMapping("updateCustomerById")
-    public String saveCustomer(@RequestParam("id") int id,AddCustomerDto addCustomerDto,Model model) {
-        service.updateCustomer(addCustomerDto);
-        List<AddCustomerDto> dtoList = (List<AddCustomerDto>) service.getById(id);
-        dtoList.stream().forEach(System.err::println);
-        model.addAttribute("listOfCustomer", dtoList);
-        return "viewCustomer";
+    public String updateCustomerById(@RequestParam int id,
+                                     AddCustomerDto addCustomerDto,
+                                     Model model) {
+
+        boolean isUpdated = service.updateCustomerById(id, addCustomerDto);
+
+        if (isUpdated) {
+            return "redirect:/getAllCustomers";
+        } else {
+            model.addAttribute("errorMessage", "Failed to update customer. Please try again.");
+            return "updateCustomer";
+        }
     }
 
 
-
     @GetMapping("deleteCustomer")
-    public String deleteCustomerById(@RequestParam("id") int  id, HttpServletRequest request,Model model){
+    public String deleteCustomerById(@RequestParam("id") int id, HttpServletRequest request, Model model) {
 
-        System.err.println(id);
-        service.deleteById( id);
-        List<AddCustomerDto> dtoList = service.fetchAllCustomers();
-        dtoList.stream().forEach(System.err::println);
-        model.addAttribute("listOfCustomer", dtoList);
+
+        service.deleteById(id);
+        List<AddCustomerDto>dtoList=service.fetchAllCustomers();
+        dtoList.stream().forEach(System.out::println);
+        model.addAttribute("listOfCustomers",dtoList);
         return "viewCustomer";
     }
 //    @GetMapping("getDebtorCustomerTypes")

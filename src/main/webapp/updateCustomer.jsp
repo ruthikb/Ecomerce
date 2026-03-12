@@ -1,328 +1,414 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
-    <%@ page isELIgnored="false" %>
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-            <!doctype html>
-            <html lang="en">
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-            <head>
-                <meta charset="utf-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <title>Admin-Page</title>
+<!doctype html>
+<html lang="en">
 
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-                <link rel="stylesheet"
-                    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
-                <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-                <style>
-                    body {
-                        margin: 0;
-                        font-family: Arial, sans-serif;
-                        background-color: #f5f5f5;
-                    }
+<title>Admin Page</title>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-                    .navbar {
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        z-index: 1050;
-                    }
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-                    .sidebar {
-                        position: fixed;
-                        top: 56px;
+<style>
 
-                        left: 0;
-                        width: 250px;
-                        height: calc(100vh - 56px);
-                        background-color: #000;
-                        color: white;
-                        padding: 15px;
-                        overflow-y: auto;
-                    }
+body{
+margin:0;
+font-family:Arial;
+background:#f5f5f5;
+}
 
-                    .sidebar a {
-                        color: #ddd;
-                        text-decoration: none;
-                    }
+.navbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+z-index:1050;
+}
 
-                    .sidebar a:hover {
-                        color: #fff;
-                    }
+.sidebar{
+position:fixed;
+top:56px;
+left:0;
+width:250px;
+height:calc(100vh - 56px);
+background:black;
+color:white;
+padding:15px;
+overflow-y:auto;
+}
 
+.sidebar a{
+color:#ddd;
+text-decoration:none;
+}
 
-                    main {
-                        margin-top: 70px;
-                        margin-left: 260px;
+.sidebar a:hover{
+color:white;
+}
 
-                        padding: 20px;
-                        background-color: #fff;
-                        min-height: calc(100vh - 70px);
-                    }
+main{
+margin-top:70px;
+margin-left:260px;
+padding:20px;
+background:white;
+min-height:calc(100vh - 70px);
+}
 
+footer{
+background:black;
+color:white;
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+height:50px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
 
-                    footer {
-                        background-color: black;
-                        color: white;
-                        position: fixed;
-                        bottom: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 50px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        font-size: 0.9em;
-                        z-index: 1050;
-                    }
+footer .date-time{
+position:absolute;
+right:20px;
+}
 
-                    footer .date-time {
-                        position: absolute;
-                        right: 20px;
-                        font-weight: 600;
-                    }
+</style>
 
-                    footer p {
-                        margin: 0;
-                        text-align: center;
-                    }
+</head>
 
-                    body {
-                        overflow-y: auto;
-                    }
-                </style>
-            </head>
+<body>
 
-            <body>
+<!-- Navbar -->
 
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="Admin.jsp">E-Commerce Portal</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<div class="container-fluid">
 
-                        <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
-                            <ul class="navbar-nav mb-2 mb-lg-0">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-person-circle"></i> Admin Name
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+<a class="navbar-brand" href="Admin.jsp">E-Commerce Portal</a>
 
-                                        <li><a class="dropdown-item" href="logOut">Log-Out</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+<div class="collapse navbar-collapse justify-content-end">
 
-                <div class="sidebar border-end">
-                    <h5 class="text-center border-bottom pb-2 mb-3">Menu</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <a href="addCustomerPage" class="d-block py-2 px-3 text-white rounded hover-item">
-                                <i class="bi bi-person-plus me-2"></i> Add Customer
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="getAllCustomers" class="d-block py-2 px-3 text-white rounded hover-item">
-                                <i class="bi bi-people me-2"></i> View Customers
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                                       <a href="viewUser" class="d-block py-2 px-3 text-white rounded hover-item">
-                                       <i class="bi bi-people me-2"></i> View User
-                                       </a>
-                                       </li>
-                    </ul>
-                </div>
-                <main>
-                    <h4 class="text-center mb-4">Update Cust</div>omer</h4>
+<ul class="navbar-nav">
 
-                    <form class="row g-3" action="updateCustomerById" method="post">
-                        
-                        <div class="col-md-6">
-                            
-                            <input type="number" name="id" hidden value="${customer.getId()}">
-                            <label class="form-label">Customer Name</label>
-                            <input type="text" class="form-control" name="customerName"
-                                value="${customer.getCustomerName()}" required>
+<li class="nav-item dropdown">
 
-                            <label class="form-label mt-3">Customer Type</label>
-                            <select class="form-select" name="customerType" required>
-                                <option value="">Select Type</option>
-                                <option value="creditor" <c:if test="${customer.getCustomerType() == 'creditor'}">
-                                    selected</c:if>>Creditor</option>
-                                <option value="debtor" <c:if test="${customer.getCustomerType() == 'debtor'}">selected
-                                    </c:if>>Debtor</option>
-                            </select>
+<a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
 
-                            <label class="form-label mt-3">Email</label>
-                            <input type="email" class="form-control" name="email" value="${customer.getEmail()}"
-                                required>
+<i class="bi bi-person-circle"></i> Admin
 
-                            <label class="form-label mt-3">Contact Number</label>
-                            <input type="text" class="form-control" name="contactNumber"
-                                value="${customer.getContactNumber()}" required>
+</a>
 
-                            <label class="form-label mt-3">GST Number</label>
-                            <input type="text" class="form-control" name="gstNumber" value="${customer.getGstNumber()}">
+<ul class="dropdown-menu dropdown-menu-end">
 
-                            <label class="form-label mt-3">Country</label>
-                            <input type="text" class="form-control" name="country" value="India" readonly>
-                        </div>
+<li>
+<a class="dropdown-item" href="logOut">Logout</a>
+</li>
 
-                        <div class="col-md-6">
-                            <label class="form-label mt-3">Pin Code</label>
-                            <input type="text" class="form-control" name="pinCode" value="${customer.getPinCode()}"
-                                onchange="checkPinCode()" required>
-                            <div id="stateCityError" class="text-danger small mt-2"></div>
-                            <label class="form-label">State</label>
-                            <select class="form-select" id="state" name="state" required>
+</ul>
 
-                                <option value="${getSingleUser.getState()}" <c:if
-                                    test="${customer.getState() == 'customer.getState()'}">selected</c:if>
-                                    >${getSingleUser.getState()}</option>
-                                <option value="">Select State</option>
-                            </select>
+</li>
 
-                            <label class="form-label mt-3">City</label>
-                            <input type="text" class="form-control" id="city" name="city"
-                                value="${customer.getCity()}" required>
-                             <label class="form-label">Do you want shipping address same as billing address?</label>
-                            <div>
-                                <input type="radio" name="sameAddress" value="${customer.getSameAddress()}"
-                                    id="sameYes">
-                                <label for="sameYes">Yes</label>
-                                <input type="radio" name="sameAddress" value="${customer.getSameAddress()}" id="sameNo"
-                                    class="ms-3">
-                                <label for="sameNo">No</label>
-                            </div>
+</ul>
 
-                            <label class="form-label mt-3">Shipping Address</label>
-                            <input type="text" class="form-control" name="shippingAddress"
-                                value="${customer.getShippingAddress()}" id="shippingAddress">
-                            
-                            <label class="form-label mt-3">Address</label>
-                            <input type="text" class="form-control" name="address" value="${customer.getAddress()}"
-                                required>
+</div>
 
-                            
-                        </div>
+</div>
+</nav>
 
-                        <div class="col-12 mt-3">
-                           <label class="form-label mt-3">Billing Address</label>
-                            <input type="text" class="form-control" name="billingAddress"
-                                value="${customer.billingAddress}" id="billingAddress">
-                        </div>
+<!-- Sidebar -->
 
-                        <div class="col-12 mt-3">
-                            <label class="form-label">Payment Mode</label><br>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="paymentMode" value="online"
-                                    id="online" ${customer.paymentMode=='online' ? 'checked' : '' }>
-                                <label class="form-check-label" for="online">Online</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="paymentMode" value="cash" id="cash"
-                                    ${customer.paymentMode=='cash' ? 'checked' : '' }>
-                                <label class="form-check-label" for="cash">Cash</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="paymentMode" value="cheque"
-                                    id="cheque" ${customer.paymentMode=='cheque' ? 'checked' : '' }>
-                                <label class="form-check-label" for="cheque">Cheque</label>
-                            </div>
-                        </div>
+<div class="sidebar border-end">
 
-                        <div class="col-12 text-center mt-4">
-                            <button type="submit" class="btn btn-primary px-4">Update</button>
-                        </div>
-                    </form>
-                    </div>
-                </main>
+<h5 class="text-center border-bottom pb-2 mb-3">Menu</h5>
 
-                <footer>
-                    <span id="dateTime" class="date-time"></span>
-                    <p>&copy; 2025 E-commerce Portal | e-Portal</p>
-                </footer>
+<ul class="list-unstyled">
 
-                <script>
+<li class="mb-2">
 
-                    function updateDateTime() {
-                        document.getElementById("dateTime").textContent = new Date().toLocaleString();
-                    }
-                    setInterval(updateDateTime, 1000);
-                    updateDateTime();
-                    async function checkPinCode() {
-                        const pinCode = document.getElementById('pinCode').value.trim();
-                        const errorId = document.getElementById('pinCodeError');
-                        const stateSelect = document.getElementById('state');
-                        const cityInput = document.getElementById('city');
+<a href="addCustomerPage" class="d-block py-2 px-3 text-white rounded">
 
-                        // Clear previous errors and reset fields
-                        errorId.innerHTML = '';
-                        stateSelect.innerHTML = '<option selected disabled>Loading states...</option>';
-                        cityInput.value = '';
+<i class="bi bi-person-plus"></i> Add Customer
 
-                        if (pinCode.length !== 6 || isNaN(pinCode)) {
-                            errorId.innerHTML = "Please enter a valid 6-digit pinCode.";
-                            return;
-                        }
-                        try {
-                            const response = await axios.get(`https://api.postalpincode.in/pincode/${pinCode}`);
-                            const data = response.data;
+</a>
 
-                            if (data[0].Status === "Success" && data[0].PostOffice.length > 0) {
-                                const office = data[0].PostOffice[0];
-                                stateSelect.innerHTML = `<option selected>${office.State}</option>`;
-                                cityInput.value = office.District;
-                            } else {
-                                errorId.innerHTML = "No data found for this pincode.";
-                            }
-                        } catch (error) {
-                            errorId.innerHTML = "Failed to fetch data. Try again later.";
-                        }
-                    }
-                    document.addEventListener('DOMContentLoaded', function() {
-                                const sameYesRadio = document.getElementById('sameYes');
-                                const sameNoRadio = document.getElementById('sameNo');
-                                const billingAddressInput = document.getElementById('billingAddress');
-                                const shippingAddressInput = document.getElementById('shippingAddress');
+</li>
 
-                                function handleAddressChange() {
-                                    if (sameYesRadio.checked) {
-                                        shippingAddressInput.value = billingAddressInput.value;
-                                        shippingAddressInput.setAttribute('readonly', true);
-                                    } else {
-                                        shippingAddressInput.value = '';
-                                        shippingAddressInput.removeAttribute('readonly');
-                                    }
-                                }
+<li class="mb-2">
 
+<a href="getAllCustomers" class="d-block py-2 px-3 text-white rounded">
 
-                                sameYesRadio.addEventListener('change', handleAddressChange);
-                                sameNoRadio.addEventListener('change', handleAddressChange);
+<i class="bi bi-people"></i> View Customers
 
+</a>
 
-                                billingAddressInput.addEventListener('input', function() {
-                                    if (sameYesRadio.checked) {
-                                        shippingAddressInput.value = billingAddressInput.value;
-                                    }
-                                });
-                            });
+</li>
 
-                </script>
+<li class="mb-2">
 
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-            </body>
+<a href="viewUser" class="d-block py-2 px-3 text-white rounded">
 
-            </html>
+<i class="bi bi-person"></i> View User
+
+</a>
+
+</li>
+
+</ul>
+
+</div>
+
+<!-- Main -->
+
+<main>
+
+<h4 class="text-center mb-4">Update Customer</h4>
+<form class="row g-3" action="updateCustomerById" method="post">
+
+<input type="hidden" name="id" value="${customer.id}">
+
+<div class="col-md-6">
+
+<label class="form-label">Customer Name</label>
+<input type="text" class="form-control" name="customerName"
+value="${customer.customerName}" required>
+
+<label class="form-label mt-3">Customer Type</label>
+
+<select class="form-select" name="customerType">
+
+<option value="">Select Type</option>
+
+<option value="creditor"
+<c:if test="${customer.customerType=='creditor'}">selected</c:if>>
+Creditor
+</option>
+
+<option value="debtor"
+<c:if test="${customer.customerType=='debtor'}">selected</c:if>>
+Debtor
+</option>
+
+</select>
+
+<label class="form-label mt-3">Email</label>
+<input type="email" class="form-control"
+name="email"
+value="${customer.email}" required>
+
+<label class="form-label mt-3">Contact Number</label>
+<input type="text" class="form-control"
+name="contactNumber"
+value="${customer.contactNumber}" required>
+
+<label class="form-label mt-3">GST Number</label>
+<input type="text" class="form-control"
+name="gstNumber"
+value="${customer.gstNumber}">
+
+<label class="form-label mt-3">Country</label>
+<input type="text" class="form-control"
+name="country"
+value="India" readonly>
+
+</div>
+
+<div class="col-md-6">
+
+<label class="form-label">Pin Code</label>
+
+<input type="text"
+id="pinCode"
+class="form-control"
+name="pinCode"
+value="${customer.pinCode}"
+onchange="checkPinCode()"
+required>
+
+<div id="stateCityError" class="text-danger"></div>
+
+<label class="form-label mt-3">State</label>
+
+<select class="form-select" id="state" name="state">
+
+<option selected>${customer.state}</option>
+
+</select>
+
+<label class="form-label mt-3">City</label>
+
+<input type="text"
+id="city"
+class="form-control"
+name="city"
+value="${customer.city}">
+
+<label class="form-label mt-3">Billing Address</label>
+
+<input type="text"
+class="form-control"
+id="billingAddress"
+name="billingAddress"
+value="${customer.billingAddress}">
+
+<label class="form-label mt-3">Shipping Address</label>
+
+<input type="text"
+class="form-control"
+id="shippingAddress"
+name="shippingAddress"
+value="${customer.shippingAddress}">
+
+<label class="form-label mt-3">Same as Billing?</label>
+
+<div>
+
+<input type="radio" name="sameAddress" value="yes" id="sameYes">
+
+<label for="sameYes">Yes</label>
+
+<input type="radio" name="sameAddress" value="no" id="sameNo">
+
+<label for="sameNo">No</label>
+
+</div>
+
+</div>
+
+<div class="col-12 mt-3">
+
+<label class="form-label">Payment Mode</label>
+
+<div class="form-check form-check-inline">
+
+<input class="form-check-input"
+type="radio"
+name="paymentMode"
+value="online"
+<c:if test="${customer.paymentMode=='online'}">checked</c:if>>
+
+<label class="form-check-label">Online</label>
+
+</div>
+
+<div class="form-check form-check-inline">
+
+<input class="form-check-input"
+type="radio"
+name="paymentMode"
+value="cash"
+<c:if test="${customer.paymentMode=='cash'}">checked</c:if>>
+
+<label class="form-check-label">Cash</label>
+
+</div>
+
+<div class="form-check form-check-inline">
+
+<input class="form-check-input"
+type="radio"
+name="paymentMode"
+value="cheque"
+<c:if test="${customer.paymentMode=='cheque'}">checked</c:if>>
+
+<label class="form-check-label">Cheque</label>
+
+</div>
+
+</div>
+
+<div class="col-12 text-center mt-4">
+
+<button type="submit" class="btn btn-primary">Update</button>
+
+</div>
+
+</form>
+
+</main>
+
+<footer>
+
+<span id="dateTime" class="date-time"></span>
+
+<p>&copy; 2025 E-Commerce Portal</p>
+
+</footer>
+
+<script>
+
+function updateDateTime(){
+document.getElementById("dateTime").innerText =
+new Date().toLocaleString();
+}
+
+setInterval(updateDateTime,1000);
+
+async function checkPinCode(){
+
+const pin=document.getElementById("pinCode").value;
+const error=document.getElementById("stateCityError");
+const state=document.getElementById("state");
+const city=document.getElementById("city");
+
+error.innerHTML="";
+
+if(pin.length!=6){
+error.innerHTML="Enter valid pincode";
+return;
+}
+
+try{
+
+const response=
+await axios.get(`https://api.postalpincode.in/pincode/${pin}`);
+
+const data=response.data;
+
+if(data[0].Status=="Success"){
+
+state.innerHTML=
+`<option>${data[0].PostOffice[0].State}</option>`;
+
+city.value=data[0].PostOffice[0].District;
+
+}
+
+}catch(e){
+
+error.innerHTML="Failed to fetch pincode";
+
+}
+
+}
+
+document.getElementById("sameYes")
+.addEventListener("change",function(){
+
+document.getElementById("shippingAddress").value=
+document.getElementById("billingAddress").value;
+
+document.getElementById("shippingAddress").readOnly=true;
+
+});
+
+document.getElementById("sameNo")
+.addEventListener("change",function(){
+
+document.getElementById("shippingAddress").readOnly=false;
+
+});
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

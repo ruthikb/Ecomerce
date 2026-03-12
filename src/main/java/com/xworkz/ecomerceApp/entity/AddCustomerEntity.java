@@ -37,7 +37,8 @@ import javax.persistence.*;
                 name = "AddCustomerEntity.findByType",query = "SELECT a FROM AddCustomerEntity a WHERE a.customerType = :type"
         ),
         @NamedQuery(name = "getDebtorCustomerTypes", query = "SELECT a.customerName FROM AddCustomerEntity a WHERE a.customerType = :type"),
-        @NamedQuery(name = "getDebitCustomers", query = "SELECT a FROM AddCustomerEntity a WHERE a.customerType = :type")
+        @NamedQuery(name = "getDebitCustomers", query = "SELECT a FROM AddCustomerEntity a WHERE a.customerType = :type"),
+        @NamedQuery(name = "deleteById",query = "DELETE FROM AddCustomerEntity a WHERE a.id = :id")
 })
 public class AddCustomerEntity {
     @Id
