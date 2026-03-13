@@ -14,7 +14,7 @@ public interface ProductService {
 
     List<ProductNameEntity> getAllProductNames();
 
-    List<String> getAllProductNamesOnly();
+    List<ProductNameEntity> getAllProductNamesOnly();
 
     List<ProductNameEntity> getById(int id);
 

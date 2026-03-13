@@ -16,7 +16,8 @@ import javax.persistence.*;
 //        @NamedQuery(name = "isProductNameExists",query = "from ProductNameEntity  where productName=:productName"),
        @NamedQuery(name = "getNameById",query = "from ProductNameEntity where id=:id"),
         @NamedQuery(name = "getAllProductNames",query = "from ProductNameEntity"),
-        @NamedQuery(name = "getAllProductNamesOnly",query = "select productName from ProductNameEntity")
+        @NamedQuery(name = "getAllProductNamesOnly",query = "select p.productName from ProductNameEntity p"),
+//        @NamedQuery(name = "getAllProductNames",query = "SELECT p.productName FROM ProductNameEntity p")
 })
 public class ProductNameEntity {
 

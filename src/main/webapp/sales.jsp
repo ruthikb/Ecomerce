@@ -213,7 +213,7 @@
                 <label>Product Group Name</label>
                 <select name="productGroupId" class="form-select" required>
                     <c:forEach var="group" items="${productGroups}">
-                        <option value="${group.id}">${group.productName}</option>
+                        <option value="${group}">${group}</option>
                     </c:forEach>
                 </select>
             </div>

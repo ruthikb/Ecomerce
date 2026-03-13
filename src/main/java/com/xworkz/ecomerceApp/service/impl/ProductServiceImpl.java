@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<String> getAllProductNamesOnly() {
+    public List<ProductNameEntity> getAllProductNamesOnly() {
         return productListRepo.findAllProductNamesOnly();
     }
 

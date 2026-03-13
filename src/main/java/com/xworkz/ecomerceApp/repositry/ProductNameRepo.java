@@ -12,7 +12,7 @@ public interface ProductNameRepo {
 
     List<ProductNameEntity> findAllProductNames();
 
-    List<String> findAllProductNamesOnly();
+    List<ProductNameEntity> findAllProductNamesOnly();
 //    boolean isProductNameExists(String productName);
 
 

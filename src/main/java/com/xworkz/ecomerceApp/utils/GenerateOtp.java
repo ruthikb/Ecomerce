@@ -38,7 +38,7 @@ public class GenerateOtp {
             helper.setTo(email);
 
             // CC Email
-            helper.setCc("kruthikb60@gmail.com");
+//            helper.setCc("kruthikb60@gmail.com");
 
             helper.setSubject("Your OTP Code");
 

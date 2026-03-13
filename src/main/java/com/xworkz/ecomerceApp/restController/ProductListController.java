@@ -66,7 +66,7 @@ public class ProductListController{
     }
     @GetMapping("getAllProductNamesOnly")
     public ResponseEntity<?> getAllProductNamesOnly() {
-        List<String> productNames = productListService.getAllProductNamesOnly();
+        List<ProductNameEntity> productNames = productListService.getAllProductNamesOnly();
         if (productNames.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No product names found");
         }

@@ -158,12 +158,12 @@ public class InvoiceServiceImpl implements InvoiceService {
             int tableY = 550;
             int rowHeight = 25;
 
-            int col1 = 50;
-            int col2 = 100;
-            int col3 = 300;
-            int col4 = 380;
-            int col5 = 460;
-            int tableEnd = 540;
+            int col1 = 50;   // SL
+            int col2 = 90;   // Product start
+            int col3 = 220;  // Qty start
+            int col4 = 320;  // Price start
+            int col5 = 420;  // Total start
+            int tableEnd = 520;
 
             // Header border
             content.addRect(col1, tableY, tableEnd - col1, rowHeight);
@@ -249,7 +249,7 @@ public class InvoiceServiceImpl implements InvoiceService {
             content.endText();
 
             content.beginText();
-            content.newLineAtOffset(col3 + 10, rowY + 8);
+            content.newLineAtOffset(col3 + 35, rowY + 8);
             content.showText(String.valueOf(salesDto.getQuantity()));
             content.endText();
 

@@ -41,7 +41,7 @@ public class SalesController {
     public String sales(Model model) {
         // Fetch all customers and products to display in the form
         List<AddCustomerDto> customers = service.fetchAllCustomers();
-        List<ProductNameEntity> productGroups = productService.getAllProductNames();
+        List<ProductNameEntity> productGroups = productService.getAllProductNamesOnly();
 
         System.err.println("Customers: " + customers);
         System.err.println("Product Groups: " + productGroups);
