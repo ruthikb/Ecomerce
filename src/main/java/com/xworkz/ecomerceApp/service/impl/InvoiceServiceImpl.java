@@ -158,6 +158,7 @@ public class InvoiceServiceImpl implements InvoiceService {
             int tableY = 550;
             int rowHeight = 25;
 
+
             int col1 = 50;   // SL
             int col2 = 90;   // Product start
             int col3 = 220;  // Qty start
