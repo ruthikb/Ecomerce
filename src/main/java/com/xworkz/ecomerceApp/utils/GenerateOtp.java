@@ -37,6 +37,7 @@ public class GenerateOtp {
 
             helper.setTo(email);
 
+
             // CC Email
 //            helper.setCc("kruthikb60@gmail.com");
 
