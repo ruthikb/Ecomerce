@@ -14,6 +14,7 @@ public interface AddCustomerRepo {
 
     AddCustomerEntity getById(int id);
 
+
     boolean deleteById(AddCustomerEntity entity);
 
     List<AddCustomerEntity> findByType(String type);
