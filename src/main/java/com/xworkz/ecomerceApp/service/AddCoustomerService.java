@@ -16,6 +16,7 @@ public interface AddCoustomerService {
 
     List<AddCustomerEntity> fetchDebitors();
 
+
     boolean updateCustomerById(int id, AddCustomerDto addCustomerDto);
 
 //    List<AddCustomerDto> fetchDebitors();

@@ -35,6 +35,7 @@ import javax.persistence.*;
 
         ),
         @NamedQuery(
+
                 name = "AddCustomerEntity.getById", query = "SELECT a FROM AddCustomerEntity a WHERE a.id = :id"
         ),
         @NamedQuery(

@@ -57,6 +57,7 @@ public class AddCustomerRepoImpl implements AddCustomerRepo {
     @Override
     public AddCustomerEntity getById(int id) {
         try {
+
             EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
             Query query = entityManager.createNamedQuery("AddCustomerEntity.getById");

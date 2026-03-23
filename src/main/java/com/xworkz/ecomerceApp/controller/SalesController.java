@@ -65,6 +65,8 @@ public class SalesController {
             log.error("Invoice generation failed", e);
         }
 
+
+
         // Resolve customer name from customerId (SalesDto stores id as String)
         String customerName = null;
         String custIdStr = salesDto.getCustomerId();

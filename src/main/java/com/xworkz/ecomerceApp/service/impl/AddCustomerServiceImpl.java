@@ -70,6 +70,7 @@ public class AddCustomerServiceImpl implements AddCoustomerService {
     @Override
     public AddCustomerEntity getById(int customerId) {
         return repo.getById(customerId);
+
     }
 
     @Override
