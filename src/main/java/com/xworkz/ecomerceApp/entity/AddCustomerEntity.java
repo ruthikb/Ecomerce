@@ -27,12 +27,8 @@ import javax.persistence.*;
         @NamedQuery(
                 name = "AddCustomerEntity.existsByNameAndType", query = "SELECT COUNT(a) FROM AddCustomerEntity a WHERE a.customerName = :customerName AND a.customerType = :customerType"
         ),
-
         @NamedQuery(
                 name = "AddCustomerEntity.findAll",query = "SELECT a FROM AddCustomerEntity a"
-
-
-
         ),
         @NamedQuery(
 
