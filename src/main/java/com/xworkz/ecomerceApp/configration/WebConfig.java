@@ -50,6 +50,7 @@ public class WebConfig implements WebMvcConfigurer{
         return new InternalResourceViewResolver("/",".jsp");
     }
 
+
     @Bean
     public LocalContainerEntityManagerFactoryBean factoryBean(){
         LocalContainerEntityManagerFactoryBean bean = new LocalContainerEntityManagerFactoryBean();

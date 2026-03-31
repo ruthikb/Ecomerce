@@ -63,6 +63,7 @@ public class AddCustomerController {
         return "updateCustomer"; // ✅ editCustomer.jsp
     }
 
+
     @PostMapping("addCustomer")
     public String addCustomer(@Valid AddCustomerDto addCustomerDto, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
