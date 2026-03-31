@@ -15,6 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @NamedQueries({
+
         @NamedQuery(
                 name = "AddCustomerEntity.existsByEmail", query = "SELECT COUNT(a) FROM AddCustomerEntity a WHERE a.email = :email" ),
         @NamedQuery(

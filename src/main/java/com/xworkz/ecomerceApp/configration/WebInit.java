@@ -8,6 +8,7 @@ public class WebInit extends AbstractAnnotationConfigDispatcherServletInitialize
         return new Class[]{WebConfig.class, SwaggerConfig.class};
     }
 
+
     @Override
     protected Class<?>[] getServletConfigClasses() {
         return new Class[0];
