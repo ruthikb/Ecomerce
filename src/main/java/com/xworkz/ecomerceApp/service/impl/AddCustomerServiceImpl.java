@@ -29,8 +29,6 @@ public class AddCustomerServiceImpl implements AddCoustomerService {
         return dtos;
     }
 
-
-
     @Override
     public AddCustomerDto fetchById(int id) {
         AddCustomerEntity entity = repo.getById(id);
