@@ -15,14 +15,14 @@ public class GenerateOtp {
     @Autowired
     private JavaMailSender mailSender;
 
-    // Generate OTP
+
     public String generateOtp() {
         Random random = new Random();
-        int otp = 10000 + random.nextInt(90000); // 5 digit OTP
+        int otp = 10000 + random.nextInt(90000);
         return String.valueOf(otp);
     }
 
-    // Send OTP Email with CC
+
     public String sendSimpleMessage(String email) {
 
         String otp = generateOtp();
@@ -36,11 +36,6 @@ public class GenerateOtp {
             helper.setFrom("kruthik693@gmail.com");
 
             helper.setTo(email);
-
-
-
-            // CC Email
-//            helper.setCc("kruthikb60@gmail.com");
 
             helper.setSubject("Your OTP Code");
 
@@ -73,7 +68,7 @@ public class GenerateOtp {
 
             helper.setTo(email);
 
-            // CC Email
+
             helper.setCc("kruthikb60@gmail.com");
 
             helper.setSubject("Sales Order Confirmation – TechBridge");
