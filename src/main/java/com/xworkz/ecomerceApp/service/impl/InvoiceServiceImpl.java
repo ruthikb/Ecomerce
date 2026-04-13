@@ -267,7 +267,7 @@ public class InvoiceServiceImpl implements InvoiceService {
             // ===== TOTAL BOX =====
             int totalBoxY = rowY - 70;
 
-            content.addRect(360, totalBoxY, 170, 50);
+            content.addRect(320, totalBoxY, 240, 50);
             content.stroke();
 
             content.beginText();
