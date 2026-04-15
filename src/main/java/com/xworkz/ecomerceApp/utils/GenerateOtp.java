@@ -1,6 +1,7 @@
 package com.xworkz.ecomerceApp.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -48,6 +49,21 @@ public class GenerateOtp {
         }
 
         return otp;
+    }
+
+    public void sendRegistrationMail(String toEmail, String name, String password) {
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(toEmail);
+        message.setSubject("Registration Successful");
+
+        message.setText("Hello " + name + ",\n\n"
+                + "Your registration is successful.\n"
+                + "Username: " + toEmail + "\n"
+                + " this is your one time Password please  reset your password : " + password + "\n\n"
+                + "Thank you!");
+
+        mailSender.send(message);
     }
 
     // Send Sales Confirmation Mail with Invoice

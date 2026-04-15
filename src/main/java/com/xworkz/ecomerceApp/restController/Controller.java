@@ -2,6 +2,7 @@ package com.xworkz.ecomerceApp.restController;
 
 import com.xworkz.ecomerceApp.dto.UserDto;
 import com.xworkz.ecomerceApp.service.UserService;
+import com.xworkz.ecomerceApp.utils.GenerateOtp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,9 @@ import javax.validation.Valid;
 public class Controller {
     @Autowired
     UserService userService;
+
+    @Autowired
+    GenerateOtp generateOtp;
     @PostMapping("RegisterUser")
     public ResponseEntity<String> registerUser(@Valid UserDto userDto,  BindingResult result) {
         if (result.hasErrors()) {
@@ -25,6 +29,8 @@ public class Controller {
 
         System.out.println(userDto);
         String message = userService.registerUser(userDto);
+        generateOtp.sendRegistrationMail(userDto.getEmail(),userDto.getFirstName(),userDto.getPassword());
+
 
         if (message.equals("User already exists")) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(message);

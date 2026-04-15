@@ -37,6 +37,10 @@ public class UserController {
     public  String getOp(){
      return "otp";
     }
+//    @GetMapping("changePassword")
+//    public  String changePassword(){
+//        return "changePassword";
+//    }
     @PostMapping("/loginUser")
     public String loginUser(@Valid @ModelAttribute LoginDto loginDto, Model model, HttpSession session) {
         System.err.println("controller invoked");
