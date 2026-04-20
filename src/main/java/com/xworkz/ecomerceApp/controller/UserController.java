@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.Query;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -34,13 +35,15 @@ public class UserController {
         return "login";
     }
     @GetMapping("getOtp")
-    public  String getOp(){
-     return "otp";
+    public  String getOp() {
+        return "otp";
     }
 //    @GetMapping("changePassword")
-//    public  String changePassword(){
-//        return "changePassword";
+//    public  String changePassword() {
+//        return "changePasswordPage";
 //    }
+
+
     @PostMapping("/loginUser")
     public String loginUser(@Valid @ModelAttribute LoginDto loginDto, Model model, HttpSession session) {
         System.err.println("controller invoked");
@@ -104,6 +107,33 @@ public class UserController {
         }
         return "login";
     }
+//    @PostMapping("/updatePassword")
+//    public String updatePassword(@RequestParam String oldPassword,
+//                                 @RequestParam String newPassword,
+//                                 @RequestParam String confirmPassword,
+//                                 HttpSession session,
+//                                 Model model) {
+//
+//        // Get logged-in user email from session
+//        String email = (String) session.getAttribute("userEmail");
+//
+//        if (email == null) {
+//            model.addAttribute("error", "Session expired. Please login again.");
+//            return "login";
+//        }
+//
+//        String result = loginService.updatePassword(email, oldPassword, newPassword, confirmPassword);
+//
+//        if (result.equals("success")) {
+//            model.addAttribute("success", "Password updated successfully!");
+//        } else {
+//            model.addAttribute("error", result);
+//        }
+//
+//        return "login"; // your JSP page
+//    }
+
+
     @GetMapping("logOut")
     public  String  logOut(){
         return "login";

@@ -18,4 +18,6 @@ public interface LoginRepositry {
     boolean saveOtp(UserEntity user);
 
     boolean updatePassword(UserEntity entity);
+
+//    boolean update(UserEntity user);
 }

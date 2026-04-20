@@ -12,4 +12,6 @@ public interface LoginService  {
     String verifyOtp(String email, String otp);
 
     String resetPassword(String email, String newPassword, String confirmPassword);
+
+//    String updatePassword(String email, String oldPassword, String newPassword, String confirmPassword);
 }

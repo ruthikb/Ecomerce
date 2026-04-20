@@ -184,7 +184,7 @@
       <div class="d-flex justify-content-between align-items-center mb-3">
 
         <a href="getOtp" class="small text-decoration-none">Forgot password?</a>
-       
+
       </div>
 
       <div id="error" class="text-danger small mb-2" style="display:none"></div>

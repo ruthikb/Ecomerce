@@ -159,6 +159,40 @@ public class LoginServiceImpl implements LoginService {
         return "allGood";
     }
 
+//    @Override
+//    public String updatePassword(String email, String oldPassword,
+//                                 String newPassword, String confirmPassword) {
+//
+//        UserEntity user = loginRepositry.findByEmailOrPhone(email);
+//
+//        if (user == null) {
+//            return "User not found";
+//        }
+//
+//        // 1. Check old password (IMPORTANT CHANGE ✅)
+//        if (!bCryptPasswordEncoder.matches(oldPassword, user.getPassword())) {
+//            return "Old password is incorrect";
+//        }
+//
+//        // 2. Check new & confirm password
+//        if (!newPassword.equals(confirmPassword)) {
+//            return "New password and confirm password do not match";
+//        }
+//
+//        // 3. Prevent same password reuse (compare raw with encoded ❗)
+//        if (bCryptPasswordEncoder.matches(newPassword, user.getPassword())) {
+//            return "New password cannot be same as old password";
+//        }
+//
+//        // 4. Encode and update password 🔐
+//        String encodedPassword = bCryptPasswordEncoder.encode(newPassword);
+//        user.setPassword(encodedPassword);
+//
+//        loginRepositry.update(user);
+//
+//        return "success";
+//    }
+
 
 }
 

@@ -102,6 +102,23 @@ public class LoginRepoImpl implements LoginRepositry {
         }
     }
 
+//    @Override
+//    public boolean update(UserEntity user) {
+//        EntityManager entityManager=null;
+//        try {
+//            entityManager=entityManagerFactory.createEntityManager();
+//            entityManager.getTransaction().begin();
+//            entityManager.merge(user);
+//            entityManager.getTransaction().commit();
+//            return true;
+//
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
+
     private <T> boolean saveLoginInfo(T entity, String  string) {
         EntityManager entityManager = null;
         try {

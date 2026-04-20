@@ -11,7 +11,7 @@ import java.time.LocalTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginDto {
+public class    LoginDto {
 
     private String emailOrPhone;
 
