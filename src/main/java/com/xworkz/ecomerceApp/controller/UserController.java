@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.Query;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 @Controller
@@ -69,7 +69,7 @@ public class UserController {
         System.out.println(email);
         String string = loginService.sendOtp(email);
         if (string.equals("noError")){
-            model.addAttribute("noError","email doesnot exist");
+            model.addAttribute("noError","email does not exist");
         }
         if (string.equals("error")){
             model.addAttribute("error","dbError");
@@ -98,8 +98,8 @@ public class UserController {
             model.addAttribute("noError","noEmail");
             return "resetPassword";
         }
-        if (string.equals("password doesnot match")){
-            model.addAttribute("passwordError","password doesnot match ");
+        if (string.equals("password does not match")){
+            model.addAttribute("passwordError","password does not match ");
             return "resetPassword";
         }
         return "login";
