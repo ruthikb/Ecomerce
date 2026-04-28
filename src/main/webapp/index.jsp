@@ -173,7 +173,7 @@
     <section class="hero">
         <h2>Welcome to e-Portal</h2>
         <p>Manage your laptop procurement efficiently</p>
-       <a href="Index">
+       <a href="loginUser">
            <button class="btn">Explore Now</button>
        </a>
     </section>

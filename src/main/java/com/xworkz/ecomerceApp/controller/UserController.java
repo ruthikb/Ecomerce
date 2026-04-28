@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.persistence.Query;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 @Controller
 public class UserController {
-
-
 
     @Autowired
     LoginService loginService;
