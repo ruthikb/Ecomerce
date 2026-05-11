@@ -1,0 +1,166 @@
+package com.xworkz.ecomerceApp.controller;
+import com.xworkz.ecomerceApp.dto.LoginDto;
+import com.xworkz.ecomerceApp.service.LoginService;
+import com.xworkz.ecomerceApp.utils.GenerateOtp;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+@Controller
+public class UserController {
+
+    @Autowired
+    LoginService loginService;
+    @Autowired
+    GenerateOtp generateOtp;
+
+    @GetMapping("Index")
+    public  String index(){
+        return  "index";
+    }
+
+    @GetMapping("loginUser")
+    public String user() {
+        return "login";
+    }
+    @GetMapping("getOtp")
+    public  String getOp() {
+        return "otp";
+    }
+//    @GetMapping("changePassword")
+//    public  String changePassword() {
+//        return "changePasswordPage";
+//    }
+    @GetMapping("landingPage")
+    public  String landingPage() {
+        return "index";
+    }
+    @GetMapping("otpPage")
+    public  String otpPage() {
+        return "otp";
+    }
+    @GetMapping("loginPage")
+    public  String loginPage() {
+        return "login";
+    }
+
+
+    @PostMapping("/loginUser")
+    public String loginUser(@Valid @ModelAttribute LoginDto loginDto,
+                            Model model,
+                            HttpSession session) {
+
+        System.out.println("Controller Invoked");
+
+        System.out.println(loginDto.getEmailOrPhone());
+        System.out.println(loginDto.getPassword());
+
+        String result = loginService.loginUser(loginDto, model);
+
+        System.out.println("Result : " + result);
+
+        switch (result) {
+
+            case "ADMIN":
+
+                session.setAttribute("adminName",
+                        loginDto.getEmailOrPhone());
+
+                return "Admin";
+
+            case "USER":
+
+                session.setAttribute("userName",
+                        loginDto.getEmailOrPhone());
+
+                return "User";
+
+            default:
+
+                System.out.println("Login Error");
+
+                model.addAttribute("error", result);
+
+                return "login";
+        }
+    }
+    @PostMapping("sendOtp")
+    public  String  sendOtp(@RequestParam String email, Model model ){
+        System.out.println(email);
+        String string = loginService.sendOtp(email);
+        if (string.equals("noError")){
+            model.addAttribute("noError","email does not exist");
+        }
+        if (string.equals("error")){
+            model.addAttribute("error","dbError");
+        }
+        model.addAttribute("email",email);
+        return  "otp";
+    }
+    @PostMapping("verifyOtp")
+        public String  verifyOtp(String  otp,String  email,Model model){
+        String result = loginService.verifyOtp(email, otp);
+//        if (result.equals("noError")) {
+//            model.addAttribute("noError", "no mail");
+//            return "otp";
+//        }
+        if (result.equals("otpError")) {
+            model.addAttribute("otpError", "otp is invalid");
+            return "otp";
+        }
+        model.addAttribute("email", email);
+        return "resetPassword";
+    }
+    @PostMapping("resetPassword")
+    public  String  resetPassword(String  newPassword,String confirmPassword,String email,Model model){
+        String  string=loginService.resetPassword(email,newPassword,confirmPassword);
+        if (string.equals("noError")){
+            model.addAttribute("noError","noEmail");
+            return "resetPassword";
+        }
+        if (string.equals("password does not match")){
+            model.addAttribute("passwordError","password does not match ");
+            return "resetPassword";
+        }
+        return "login";
+    }
+//    @PostMapping("/updatePassword")
+//    public String updatePassword(@RequestParam String oldPassword,
+//                                 @RequestParam String newPassword,
+//                                 @RequestParam String confirmPassword,
+//                                 HttpSession session,
+//                                 Model model) {
+//
+//        // Get logged-in user email from session
+//        String email = (String) session.getAttribute("userEmail");
+//
+//        if (email == null) {
+//            model.addAttribute("error", "Session expired. Please login again.");
+//            return "login";
+//        }
+//
+//        String result = loginService.updatePassword(email, oldPassword, newPassword, confirmPassword);
+//
+//        if (result.equals("success")) {
+//            model.addAttribute("success", "Password updated successfully!");
+//        } else {
+//            model.addAttribute("error", result);
+//        }
+//
+//        return "login"; // your JSP page
+//    }
+
+
+    @GetMapping("logOut")
+    public  String  logOut(){
+        return "login";
+    }
+}
