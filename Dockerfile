@@ -4,5 +4,5 @@ COPY . .
 RUN mvn clean package -DskipTests
 FROM tomcat:10.1.8-jdk17
 COPY --from =build /app/target/*.war /usr/local/tomcat/webapps/Root.war
-EXPOSE 809
+EXPOSE 8092
 CMD ["catalina.sh", "run"]
